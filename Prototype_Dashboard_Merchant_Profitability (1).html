@@ -1,0 +1,429 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><title>Dashboard Merchant Profitability - BRI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{--bg:#a9d8ff;--cd:#fff;--tx:#111;--mu:#8a94a6;--ln:#e3e8f0;--s:#eef2f7;--bl:#0a4fa3;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0d2c4d;--cd:#14263d;--tx:#e8eef7;--mu:#9fb0c8;--ln:#27405e;--s:#1b3350;color-scheme:dark}}
+:root[data-theme=dark]{--bg:#0d2c4d;--cd:#14263d;--tx:#e8eef7;--mu:#9fb0c8;--ln:#27405e;--s:#1b3350;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:13px Arial,Helvetica,sans-serif;min-width:1180px}
+.nav{display:flex;gap:44px;background:var(--cd);padding:9px 18px;font-size:15px}
+.nav a{color:var(--mu);cursor:pointer;padding:2px 4px;border-bottom:2px solid transparent}.nav a.on{color:var(--tx);border-color:var(--bl);font-weight:700}
+.hd{background:var(--cd);border-radius:8px;margin:8px 14px;padding:10px 26px;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:21px}
+.logo{font:900 30px Arial;color:#0a4fa3;letter-spacing:-1px}.logo small{display:block;font:400 8px Arial;letter-spacing:0;margin-top:-3px}
+.sub{background:var(--cd);border-radius:8px;margin:0 14px 10px;padding:10px 14px;display:flex;align-items:center;gap:22px;min-height:46px}
+.pl{border:0;border-radius:22px;padding:11px 26px;font:700 13px Arial;background:#dfe5ee;color:#8e9bb0;cursor:pointer;min-width:150px}.pl.on{background:var(--bl);color:#fff}
+.g{display:grid;grid-template-columns:17% 38% 1fr;gap:12px;margin:0 14px 14px;align-items:start}.g.ap{grid-template-columns:17% 21% 1fr}.g.nl{grid-template-columns:17% 1fr}
+.card{background:var(--cd);border-radius:12px;padding:12px;margin-bottom:12px}.card h4{margin:0 0 2px;font-size:14px;font-weight:400}
+.fl label{display:block;font-size:12px;margin:8px 0 3px}.fl .r{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dd{position:relative}.dd>button,.in{width:100%;display:flex;justify-content:space-between;align-items:center;border:1px solid #999;border-radius:3px;background:var(--cd);color:var(--tx);padding:4px 6px;font-size:12px;height:26px;cursor:pointer}
+.dd ul{display:none;position:absolute;z-index:9;left:0;right:0;top:100%;margin:0;padding:4px 6px;list-style:none;background:var(--cd);box-shadow:0 4px 14px #0003;border-radius:4px;min-width:130px}.dd.op ul{display:block}
+.dd li{padding:4px 2px;color:var(--mu);cursor:pointer;white-space:nowrap}.dd li:hover,.dd li.sel{color:var(--tx);font-weight:700}
+.in input{border:0;outline:0;background:transparent;color:var(--tx);width:100%;font-size:12px}.in{cursor:text}
+.sb{display:flex;align-items:center;gap:6px}.sb .dd{width:120px}.sb .dd>button{border:0;font-size:15px;height:auto}.sb .dd ul{min-width:120px;font-size:15px}
+.ml{margin-top:4px;max-height:158px;overflow:auto}.ml div{display:flex;gap:10px;padding:6px 2px;border-bottom:1px solid var(--ln);font-size:12px;cursor:pointer}.ml div:hover,.ml .sel{background:#eef4ff;color:#111}.ml b{color:#2f6fe0;font:700 10px monospace;padding-top:2px}
+.st{display:grid;grid-template-columns:1fr 1fr;gap:8px}.st div{background:#f2f6fc;border-radius:8px;padding:10px;color:#556;font-size:11px}.st b{display:block;color:#2563eb;font-size:19px;margin-bottom:2px}
+.kv{background:#edf1f6;border-radius:8px;padding:9px 10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#445}.kv small{display:block;font-size:9px;color:#8a94a6;margin-top:3px}.kv b{background:#fff;border:1px solid #b9cdf0;border-radius:6px;padding:4px 10px;font-size:13px;color:#111}
+.tb{border-collapse:collapse;width:100%;font:10px Arial;background:#fff;color:#111;margin-bottom:10px}.tb td,.tb th{padding:2px 5px;border:0}
+.tb th{background:#2f5a94;color:#fff;font-size:10px;padding:8px 4px}.tb th.b{background:#6a9ad6}.tb th.y{background:#bfbfbf}
+.tb .ti{font:italic 700 17px Arial;color:#2a5bd7}.tb .gc{background:#8db4f8;color:#fff;font-weight:700;text-align:center;border-top:2px solid #fff}
+.tb .sc{font:italic 700 10px Arial;color:#2a5bd7;background:#f2f2f2}.tb .gy{background:#e7e6e6;color:#5b8bd0}.tb .bb{color:#1f4e9c;font-weight:700}.tb .it{font-style:italic}
+.tb tr.tt td{background:#e7e6e6;font-weight:700}.tb tr.tt td.gc{background:#8db4f8}.tb td.n{text-align:right;white-space:nowrap}
+.tb tr.ft td{background:#dce6f5;color:#2f5a94;font-weight:700;text-align:center}.tb tr.ft.gr td{background:#bfbfbf;color:#000}
+.tb tr.ft td.n{text-align:right}.rg{overflow-x:auto}.cap{text-align:right;font:italic 700 10px Arial;margin-bottom:2px}
+.rt{display:grid;grid-template-columns:1fr 175px;gap:12px}.rt .ful{grid-column:1/3}
+.tag{z-index:2;background:#d9d9d9;color:#000;text-align:center;margin:0 auto -9px;width:110px;padding:5px;position:relative;font-size:13px}
+.dn{background:#fff;color:#000;border-radius:4px;display:flex;justify-content:space-around;align-items:center;padding:14px 6px 10px;margin-bottom:12px;font-weight:700;font-size:11px;text-align:center}.dn span{width:78px}
+.bc{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.bx{background:#fff;color:#000;height:112px;padding:6px 6px 4px;border-radius:3px;display:flex;align-items:flex-end;justify-content:space-around;position:relative;font-size:8px}
+.bx div{text-align:center;display:flex;flex-direction:column;justify-content:flex-end;height:100%;align-items:center;width:30%}.bx i{display:block;width:100%;background:#2260a8}.bx i.l{background:#4aa8e8}
+.kp{background:#fff;color:#111;border:1px solid var(--ln);border-radius:10px;padding:10px;margin-bottom:8px;display:flex;gap:10px;font-size:10px;color:#667}.kp b{display:block;color:#0d2a55;font-size:15px;font-weight:400;margin-top:2px}.kp u{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;text-decoration:none;font-size:15px;background:#e7f0fb;flex:none}.kp.ni{border:2px solid #2e9d6b;color:#0a6a43}.kp.ni b{color:#064}
+.bt{display:flex;justify-content:flex-end;gap:12px}.bt button{border:0;background:#e9edf3;border-radius:20px;padding:9px 30px;font:700 13px Arial;cursor:pointer;color:#111}
+.kf{background:#fff;color:#111;border-radius:6px;font-size:12px}.kf .hh{background:#0d3b8a;color:#fff;font-weight:700;padding:14px 8px;font-size:11px}.kf .rw{display:grid;grid-template-columns:1fr 100px;border-bottom:1px solid #ddd;padding:7px 8px;align-items:center;font-size:10px;font-weight:700}.kf .rw>div:first-child{padding-left:4px}.kf .rw.s{font-weight:400;padding-left:18px}.kf input{width:100%;border:1px solid #ccc;border-radius:3px;padding:4px;text-align:right;font-size:10px}.kf input.er{border:2px solid #e53935}
+.wj{display:block;color:#e53935;font:italic 8px Arial;font-weight:400}.kf2{background:#1d3a7a;color:#fff;border-radius:6px 6px 0 0;padding:12px 8px;font-weight:700;font-size:12px;margin-top:14px}
+.btn{border:0;background:var(--bl);color:#fff;font:700 13px Arial;border-radius:24px;padding:13px 52px;cursor:pointer}
+.res{background:#fff;color:#111;border-radius:12px;overflow:hidden;font-size:11px}.bn{background:#0d2b52;color:#fff;border-radius:6px 6px 0 0;padding:12px;display:flex;gap:12px;align-items:center;font-size:10px;line-height:1.6}.bn big{font:800 24px Arial;color:#6ee7a0;display:block;line-height:1}.bn em{background:#6ee7a0;color:#064;border-radius:10px;padding:2px 8px;font-style:normal}
+.sc3{display:grid;grid-template-columns:.9fr 1.3fr 1.3fr 1.3fr;padding:10px 12px;border-bottom:1px solid #eee;gap:8px;align-items:start}.sc3 .l{font-weight:700;font-size:11px}.sc3 .v{font-size:15px;font-weight:700}.sc3 .v.big{color:#0d2b52;font-size:17px}
+.sec{background:#14224f;color:#fff;font-weight:700;padding:7px 12px;font-size:10px}.ch{display:inline-block;font:700 9px Arial;padding:2px 8px;border-radius:9px;background:#eef0f5;color:#8a94a6;margin-top:6px}.ch.g{background:#e3f6ea;color:#2b8a50}.ch.r{background:#fdeceb;color:#d94a3e}
+.pb{display:flex;height:7px;border-radius:4px;overflow:hidden;margin:7px 0 3px}.pb i{display:block}.lg{font-size:8px;color:#8a94a6;display:flex;gap:7px;flex-wrap:wrap}.lg b{font-weight:400}
+.lgd{background:#fff;color:#444;border-radius:4px;padding:10px;margin:10px 50px;display:flex;gap:18px;justify-content:center;font-size:10px}
+.ph{background:#fff;color:#8a94a6;border-radius:12px;padding:60px 20px;text-align:center;font-size:14px}
+.tab{display:grid;grid-template-columns:230px 1fr;background:#fff;color:#222;border-radius:4px;min-height:660px;font-size:12px}.tab .lf{border-right:1px solid #ddd;padding:8px;background:#f7f7f7}
+.tool{grid-column:1/3;display:flex;gap:16px;padding:10px 12px;border-bottom:1px solid #ddd;color:#444;font-size:15px}
+.fo{margin:6px 0;font-weight:700;cursor:pointer}.fo+div label{display:block;padding:3px 8px;cursor:pointer;font-size:12px}
+.pill{display:inline-block;background:#0a4fa3;color:#fff;font:700 10px Arial;padding:6px 20px;border-radius:12px;margin-right:12px}
+.shl{border:1px solid #ddd;border-radius:3px;padding:7px 10px;margin:8px;background:#fff}
+.sh{border:1px solid #ddd;margin:6px 0;padding:6px;font-size:11px;color:#555;border-radius:3px}
+.fm{display:grid;grid-template-columns:355px 1fr;gap:12px;margin:0 14px 14px}.fc{background:#fff;color:#111;padding:20px;border-radius:4px;min-height:640px}
+.fc h3{margin:0 0 14px;font-size:14px;display:flex;gap:8px;align-items:center}.fc h3 i{background:#0a3d8f;color:#fff;border-radius:50%;width:20px;height:20px;display:grid;place-items:center;font-style:normal;font-size:11px}
+.fc label{display:block;font-size:10px;font-weight:700;color:#556;margin:12px 0 4px;text-transform:uppercase}.fc label s{color:#e53935;text-decoration:none}
+.fc input,.fc select,.fc textarea{width:100%;border:1px solid #e1e6ee;background:#f9fafc;border-radius:4px;padding:8px;font:11px Arial;color:#111}.fc .e{border-color:#e53935!important}
+.fc .c2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.chp{display:inline-block;border:1px solid #dde3ee;background:#fff;border-radius:16px;padding:6px 14px;margin:0 5px 5px 0;font:700 10px Arial;cursor:pointer}.chp.on{background:#0a3d8f;color:#fff}
+.star{font-size:20px;color:#ddd;cursor:pointer}.star.on{color:#f0b429}
+#tt{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#0d2b52;color:#fff;padding:12px 22px;border-radius:8px;display:none;z-index:99;box-shadow:0 6px 20px #0005}
+.rd{color:#d94a3e}
+.pl2{border:0;border-radius:18px;padding:10px 22px;background:#e9edf3;font:13px Arial;cursor:pointer;color:#111}
+.hl{background:#fff;color:#111;border-radius:6px;padding:26px 28px 16px}.hg{display:grid;grid-template-columns:385px 1fr;gap:30px}
+.hb{background:#1f4e9c;color:#fff;font-weight:700;text-align:center;padding:12px;font-size:15px}
+.hc{border:1px solid #e3e8f0;border-radius:8px;padding:10px 12px;background:#fafbfd;font-size:10px;color:#667}.hc b{display:block;color:#111;font-size:13px;margin-top:5px}
+.hg2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.ht{border-collapse:collapse;width:100%;font-size:14px}.ht th{background:#2f5a94;color:#fff;padding:8px 6px;text-align:center;font-size:13px}.ht th.b{background:#6ba7e0}.ht th.c{background:#5aa9dd}.ht td{padding:5px 8px;text-align:right}.ht td.t{text-align:left}.ht tbody tr[data-hm]{cursor:pointer}.ht tbody tr[data-hm]:hover td:not(.c){background:#eef4ff}.ht td.c{font-weight:700;text-align:center;color:#000}.ht tr.tot td{background:#cfe5f5;font-weight:700;height:38px;font-size:15px}
+.lgh{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;font-size:9px;margin-bottom:6px}.lgh span{white-space:nowrap}.lgh i{display:inline-block;width:24px;height:24px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.in2{background:#dfe3e8;margin-top:16px;padding:8px 12px;font-size:12px;line-height:1.4}
+
+:root{--bgg:linear-gradient(180deg,#b6d5fb,#e8f1fd 420px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bgg:#0d2c4d}:root:not([data-theme=light]) .ct{color:#8fc0ff}}
+:root[data-theme=dark]{--bgg:#0d2c4d}:root[data-theme=dark] .ct{color:#8fc0ff}
+body{background:var(--bgg);background-attachment:fixed;font-family:Inter,"Segoe UI",Arial,sans-serif}
+.hd,.cd2,.seg{background:var(--cd);border-radius:14px;box-shadow:0 2px 14px #4a80c322}
+.hd{margin:14px;padding:26px 34px;font-size:24px}.logos{display:flex;gap:30px;align-items:center}
+.dan{display:flex;align-items:center;gap:6px;font:800 15px/1 Arial;letter-spacing:-.5px}.dan i{width:26px;height:22px;background:#111;border-radius:3px 11px 11px 3px;border-bottom:5px solid #d32f2f}
+.seg{display:flex;margin:0 14px 14px;padding:6px;gap:6px;border:1px solid var(--ln)}.seg a{flex:1;text-align:center;padding:14px;border-radius:8px;color:var(--mu);cursor:pointer;font-size:13px;font-weight:600}.seg a.on{background:#0f6fd0;color:#fff}
+.cd2{margin:0 14px 14px;padding:16px 18px;min-width:0}.dg .cd2,.two .cd2,.three .cd2,.four .cd2{margin:0}
+.sub2{display:flex;gap:12px;align-items:center}.pl{border-radius:8px;padding:11px 24px;min-width:0;font-size:12px;background:#e8eef8;color:#6b7a99}.pl.on{background:#0f6fd0;color:#fff}
+.rb{margin-left:auto;display:flex;gap:12px;align-items:center}.rb .sb{font-size:12px;gap:6px}
+.bo,.bf{border-radius:8px;padding:10px 20px;font:700 12px Arial;cursor:pointer;border:1px solid #1976d2}.bo{background:var(--cd);color:#1976d2}.bf{background:#2b7de9;color:#fff}
+.flt{display:flex;gap:14px;align-items:flex-end}.flt>div{flex:1;min-width:0}.flt label{display:block;font-size:11px;font-weight:600;margin:0 0 5px}
+.flt .dd>button,.flt .in{justify-content:flex-end;gap:8px;border-color:#d5dbe6;border-radius:6px;height:32px}.flt .in input{text-align:right}.flt .rb{flex:none}
+.ct{color:#0b4f9e;font-weight:700;font-size:14px;margin-bottom:8px}.cp{float:right;font:italic 9px Arial;color:var(--mu);margin-top:4px}
+.pf{display:grid;grid-template-columns:repeat(9,1fr)}.pf>div{padding:2px 12px;border-left:1px solid var(--ln);font-size:11px}.pf>div:first-child{border:0;padding-left:0}.pf b{display:block;color:#1470d6;font-size:22px;margin-bottom:2px}.pf small{display:block;font-size:8px;color:var(--mu)}
+.dg{display:grid;grid-template-columns:50.5% 1fr;gap:14px;margin:0 14px 14px;align-items:start}.dg>div{display:flex;flex-direction:column;gap:14px;min-width:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}.four{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.kg{display:grid;grid-template-columns:1fr 1fr;gap:10px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.dr{display:flex;gap:8px}.dc{display:flex;align-items:center;gap:6px;flex:1;font-size:9px;font-weight:700;line-height:1.3}
+.kc{display:flex;flex-direction:column;gap:8px;font-size:11px;padding:14px}.kc u{text-decoration:none;color:#1470d6;margin-right:6px;font-size:14px}.kc b{font-size:16px}.kc.g b{color:#1b8a3a}
+.lst{border:1px solid var(--ln);height:132px;overflow:auto;margin-top:6px;font-size:9px}.lst div{display:flex;gap:12px;padding:4px 8px;border-bottom:1px solid var(--ln);cursor:pointer}.lst div:hover{background:#eef4ff;color:#111}
+.br{display:flex;justify-content:space-around;align-items:flex-end;height:104px}.br>div{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:2px;width:34%}.br small{font-size:8px;color:var(--mu)}.br i{width:100%;display:block;border-radius:2px}
+.tb tr.sp td.n{font-weight:700}.tb tr.ft td.n{text-align:right}.tb tr.ft td:first-child{text-align:center}
+
+.hg3{display:grid;grid-template-columns:35% 1fr;gap:14px;margin:0 14px 14px;align-items:start}.hg3>div{display:flex;flex-direction:column;gap:14px;min-width:0}.hg3 .cd2,.hg3 .kg{margin:0}
+.anc{display:inline-block;background:#e8f1fd;color:#1470d6;font:700 11px Arial;padding:5px 12px;border-radius:14px}
+.ni{display:flex;justify-content:space-between;align-items:center;margin-top:12px}.ni small{font-size:11px;color:var(--mu)}.ni b{display:block;font-size:24px;color:#0b4f9e;margin-top:4px}.ni svg{width:64px;height:64px}
+.sv{height:14px;border-radius:7px;background:#3b8de6;overflow:hidden;margin:12px 0 10px}.sv i{display:block;height:100%;background:#0b4f9e}.svl{display:flex;justify-content:space-between;font-size:11px;color:var(--mu)}.svl b{display:block;font-size:14px;color:var(--tx)}
+.ht{font-size:12px}.ht td{padding:9px 8px}.ht th{padding:8px 6px;font-size:12px}.lgh i{width:14px;height:14px;margin-right:5px}.lgh{font-size:10px;gap:6px 18px;margin-bottom:10px}
+.in2b{font-size:12px;line-height:1.55}.in2b b{color:#0b4f9e}
+
+/* ===== revisi ===== */
+.logos img{height:42px;width:auto;display:block}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .logos img{background:#fff;border-radius:8px;padding:5px 10px}}
+:root[data-theme=dark] .logos img{background:#fff;border-radius:8px;padding:5px 10px}
+.cd2 .lst{height:auto;min-height:132px;flex:1}
+.dc{font-size:10px}
+.cf .rw{display:grid;grid-template-columns:1fr 160px;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--ln);font-size:12px;font-weight:600}
+.cf .rw.s{font-weight:400;padding-left:14px}
+.cf .rw.h{border-bottom:0;padding:12px 0 2px;color:#0b4f9e;font-size:11px}
+.cf .rw:last-child{border-bottom:0}
+.cf input{width:100%;height:30px;border:1px solid #d5dbe6;border-radius:6px;padding:4px 8px;text-align:right;font-size:12px;background:var(--cd);color:var(--tx);font-family:inherit}
+.cf input.er{border:2px solid #e53935}.cf .wj{font-size:9px}
+.hg3 .btn{width:100%;border-radius:8px;padding:13px;font-size:13px;background:#2b7de9}
+.cd2.ph{padding:60px 20px;text-align:center;font-size:14px;color:var(--mu)}
+.rs{padding:0;overflow:hidden}.rs .bn{border-radius:0;padding:14px 18px}.rs .res{border-radius:0!important}.rs .lgd{margin:0;border-radius:0;border-top:1px solid var(--ln);padding:12px;flex-wrap:wrap}
+.br.b3{gap:8px;padding:0 4px}.br.b3>div{width:30%}.br.b3 small{font-size:7px}
+.hsc{overflow:auto;scrollbar-width:thin;scrollbar-color:#9db7e0 transparent}
+.hsc .ht thead tr:first-child th{position:sticky;top:0;z-index:3}
+.hsc .ht thead tr:nth-child(2) th{position:sticky;top:var(--h1,34px);z-index:3}
+.hsc .ht tr.tot td{position:sticky;bottom:0;z-index:2}
+
+/* ===== revisi layout kanan atas (Rasio, Komposisi SV EDC, Daftar Merchant/Kategori, Financial Highlight, Grafik) ===== */
+:root{--ki:#e9f2fd;--kl:#6b7280;--ttl:#1b4a85;--lbd:#cfd5df;--lhv:#eef4ff;--lsb:#8a94a6;--trk:#e6e8ec;--arc:#3a78cf;--pos:#2e7d1f;--cat:#1976d2}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--ki:#1f3f66;--kl:#a9b9d0;--ttl:#8fc0ff;--lbd:#34506f;--lhv:#1f3a5a;--lsb:#9fb0c8;--trk:#2a4363;--arc:#5aa2ff;--pos:#58c06a;--cat:#6db3ff}}
+:root[data-theme=dark]{--ki:#1f3f66;--kl:#a9b9d0;--ttl:#8fc0ff;--lbd:#34506f;--lhv:#1f3a5a;--lsb:#9fb0c8;--trk:#2a4363;--arc:#5aa2ff;--pos:#58c06a;--cat:#6db3ff}
+.rtop{display:grid;grid-template-columns:.92fr 1fr;gap:14px;align-items:stretch;min-width:0}
+.rtop>*{min-width:0}
+.stk{display:flex;flex-direction:column;gap:14px}
+.stk>.cd2{flex:1}
+.ttl{font-size:16px;font-weight:800;color:var(--ttl);letter-spacing:-.1px;margin-bottom:4px}
+.dots{position:relative;overflow:hidden}
+.dots::after{content:"";position:absolute;top:8px;right:8px;width:92px;height:84px;background:radial-gradient(circle,#5f7fb5 1.5px,transparent 2px) 0 0/13px 13px;-webkit-mask-image:linear-gradient(225deg,#000 0,transparent 78%);mask-image:linear-gradient(225deg,#000 0,transparent 78%);opacity:.6;pointer-events:none;z-index:0}
+.dots>*{position:relative;z-index:1}
+/* donut */
+.rc{display:flex;flex-direction:column;justify-content:center;padding:14px 14px 14px 18px;min-height:140px}
+.dr2{display:flex;align-items:center;gap:6px;margin-top:8px}
+.dc2{display:flex;align-items:center;gap:9px;flex:1;min-width:0;font-weight:700;font-size:11px;line-height:1.5}
+.dnx{width:clamp(46px,3.5vw,60px);height:clamp(46px,3.5vw,60px);flex:none}
+/* daftar merchant / kategori merchant */
+.lcd{display:flex;flex-direction:column;min-height:0}
+.lsub{font-size:12px;color:var(--lsb);margin:2px 0 8px}
+.lw{flex:1;position:relative;min-height:120px}
+.lst2{position:absolute;inset:0;overflow-y:scroll;overflow-x:hidden;border:1px solid var(--lbd);background:var(--cd);font-size:10.5px}
+.lst2 .lr{display:grid;grid-template-columns:46px 1fr;border-bottom:1px solid var(--lbd);cursor:pointer;height:20px;align-items:stretch}
+.lst2 .lr:last-child{border-bottom:0}
+.lst2 .lr:hover{background:var(--lhv)}
+.lst2 .lno{display:flex;align-items:center;justify-content:center;border-right:1px solid var(--lbd);color:var(--tx)}
+.lst2 .lnm{display:flex;align-items:center;padding-left:12px;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lst2::-webkit-scrollbar{width:15px}
+.lst2::-webkit-scrollbar-track{background:#f1f1f1}
+.lst2::-webkit-scrollbar-thumb{background:#a8a8a8;border-radius:8px;border:3px solid #f1f1f1}
+.lst2::-webkit-scrollbar-button:single-button{display:block;height:15px;background:#f1f1f1 no-repeat center/8px 8px}
+.lst2::-webkit-scrollbar-button:single-button:vertical:decrement{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath d='M4 2 7 6H1z' fill='%23777'/%3E%3C/svg%3E")}
+.lst2::-webkit-scrollbar-button:single-button:vertical:increment{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath d='M4 6 1 2h6z' fill='%23777'/%3E%3C/svg%3E")}
+@supports not selector(::-webkit-scrollbar){.lst2{scrollbar-width:auto;scrollbar-color:#a8a8a8 #f1f1f1}}
+.lcd.fx .lw{flex:none;height:240px}
+.cat{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px;min-height:150px}
+.cat .cn{font-size:clamp(24px,2.1vw,32px);font-weight:800;color:var(--cat);line-height:1.15}
+.cat b{font-size:12px;color:var(--tx)}
+/* financial highlight */
+.kp2{display:flex;flex-direction:column;justify-content:center;gap:10px;padding:14px 16px}
+.kh{display:flex;align-items:center;gap:9px;min-width:0}
+.ki{flex:none;width:34px;height:34px;border-radius:9px;background:var(--ki);display:grid;place-items:center}
+.ki svg{width:21px;height:21px}
+.kl{font-size:12.5px;color:var(--kl);line-height:1.25}
+.kv2{font-size:18px;font-weight:800;color:var(--tx);padding-left:10px;white-space:nowrap}
+.kp2.g .kv2{color:var(--pos)}
+.rtop>.kg{grid-template-rows:1fr 1fr;align-items:stretch}
+/* grafik */
+.chc{display:flex;flex-direction:column}
+.chc .br{height:112px;margin-top:auto;justify-content:center;gap:12%}
+.chc .br>div{width:26%}
+.chc .br.b3{gap:4%;padding:0}
+.chc .br.b3>div{width:25%}
+.chc .br small{font-size:10.5px;color:var(--lsb);white-space:nowrap}
+.chc .br.b3 small{font-size:9.5px}
+.chc .br .bv{margin-bottom:3px}
+.dc2 br{display:block}
+@media(max-width:1500px){
+.rtop{grid-template-columns:1fr 1fr}
+.rc{padding:12px 10px 12px 14px}
+.dr2{gap:4px}.dc2{font-size:10px;gap:6px}.dnx{width:44px;height:44px}
+.kp2{padding:12px}.kh{gap:6px}.ki{width:28px;height:28px;border-radius:8px}.ki svg{width:17px;height:17px}.kl{font-size:11px}.kv2{font-size:16px;padding-left:6px}
+.chc .br{gap:10%}.chc .br.b3{gap:3%}
+}
+</style></head><body>
+<div id="top"></div><div class="seg" id="nav"></div><div id="app"></div><div id="tt"></div>
+<script>
+const S={pg:'cpa',sub:'d',by:'Group',jp:'Akumulasi',per:'Juli 2026',nm:'CMK Group',mid:'12345',cif:'',tid:'',ro:'Nasional (All RO)',mcc:'All',base:'Prognosa Bisnis RTC',open:null,sim:0,hide:0,ssa:{p:'YoY %',ro:'Region 1 Medan',mcc:'Hotel',k:['Asset Spread','Beban Bunga','Beban FTP'],fo:{}},fb:{cat:'Bug / Error',star:4,mod:'',err:0}};
+const JP=['Akumulasi','Marginal'],PER=['Juli 2026','Juni 2026','Mei 2026','April 2026','Maret 2026'],RO=['Nasional (All RO)','Region 1 Medan','Region 2 Pekanbaru','Region 3 Padang','Region 4 Palembang'],MCC=['All','Elektronik','Fashion','Groceries','Tour Travel'];
+const MER=['Mondial','Frank n Co','The Palace','Laku Emas','Hala','Ilygold','She deserves the world'];
+const MOD=['CPA Group (Profitability Detail)','CPA Merchant (Profitability Detail)','CPA Merchant (Account Planning)','CPA Group (Account Planning)','MPP (Profitability Detail)','MPP (Account Planning)','SSA'];
+const MN=['Jan','Feb','Mar','Apr','Mei','Jun','Jul'],$=s=>document.querySelector(s);
+const hs=s=>{let x=7;for(const c of s)x=(x*31+c.charCodeAt(0))%100003;return x},rnd=s=>{const x=Math.sin(hs(s))*1e4;return x-Math.floor(x)};
+const MB=v=>{const x=v/1000,a=Math.abs(x),d=a>0&&a<0.01?3:2;return x.toLocaleString('id-ID',{minimumFractionDigits:d,maximumFractionDigits:d})};
+const N=n=>Math.round(n).toLocaleString('id-ID'),pc=(a,b)=>(b/a-1)*100,PF=p=>p.toFixed(1).replace('.',',')+'%';
+/* ===== data tabel ===== */
+const PORT=[{n:'Pinjaman',r:['Pinjaman']},{n:'Average Daily DPK',r:['Giro','Tabungan','Deposito','!Total DPK']},{n:'Sales Volume',r:['EDC On Us','EDC Off Us','!Total Sales Volume EDC','QRIS','!Total Sales Volume']}];
+const TOP=[{n:'Pendapatan Bunga',r:['Pinjaman Merchant','Pinjaman Owner Perusahaan (inc kartu kredit)','Kartu Kredit Pegawai','!Total Pendapatan Bunga']},{n:'Beban FTP',r:['Pinjaman Merchant','Pinjaman Owner Perusahaan','Kartu Kredit Pegawai','!Total Beban  FTP']},{s:'Asset Spread',gy:1},
+{n:'Pendapatan FTP',r:['DPK Merchant','DPK Owner Perusahaan','DPK Payroll','!Total Pendapatan FTP']},{n:'Beban Bunga',r:['DPK Merchant','DPK Owner Perusahaan','DPK Payroll','!Total Beban Bunga']},{s:'Liabilities Spread',gy:1},
+{n:'Pendapatan MDR (Gross)',r:['#*1. EDC','.#/a.On Us','..*i.Kartu Kredit (Master Card, Visa dan JCB)','..*ii.Kartu Debit','.#/b.Off Us','..*i.Kartu Kredit (Master Card, Visa dan JCB)','..*ii.Kartu Debit','#*2. QRIS','.*/On Us (Dinamis & Statis)','*3. Brizzi','!Total Pendapatan MDR Gross']},
+{n:'Pendapatan Cross Selling',r:['*a.Admin Simpanan','*b.Admin Kartu ATM','*c.Transaksi BRImo','*/d.Annual Fee Kartu Kredit','!Total Pendapatan Cross Selling']}];
+const COST=[{s:'Controllable Business Cost'},{s:'Fixed Cost',gy:1},{n:'Biaya Sewa EDC',r:['a.FMS (Rp 260.000)','*b.Partnership','c. Kategori lainnya','!Total Biaya Sewa']},{s:'Variable Cost',gy:1},
+{n:'Biaya Interchange Fee',r:['#*1.EDC (Off Us) Kartu Kredit','..*/a. Master Card','..*/b. Visa','..*/c. JCB','..*/c. GPN dan Lainnya','#*2.QRIS','..*/a. Off Us','!Total Interchange Fee']},{n:'Biaya MCBS',r:['Biaya mastercard (Rp 146)']}];
+const UNC=[{s:'Uncontrollable Business Cost'},{s:'Fixed Cost',gy:1},{n:'Beban Tenaga Kerja (BTK)',r:['Bisnis Acquiring sesuai bobot KPI']},{s:'Variable Cost',gy:1},{n:'Biaya Program/ Promosi',r:['Biaya Promo/ program']}];
+function cfg(){const i=MN.indexOf(S.per.slice(0,3)==='Mei'?'Mei':S.per.slice(0,3)),m=S.jp=='Marginal';const a=x=>MN[Math.max(0,x)]+"'26";
+ return m?{t:'m',n:3,h:[a(i-2),a(i-1),a(i),`%MoM<br>${a(i-2)} - ${a(i-1)}`,`%MoM<br>${a(i-1)} - ${a(i)}`]}:{t:'a',n:2,h:[MN[i]+"'25",MN[i]+"'26",'%YoY']}}
+function vals(l,c){const k=c.t=='m'?3:2,b=60+rnd(l+S.per+S.nm+S.ro+S.mcc)*3800;return Array.from({length:k},(_,j)=>b*(0.82+rnd(l+j+'x')*.4))}
+function der(a,c){return c.t=='m'?[...a.map(N),PF(pc(a[0],a[1])),PF(pc(a[1],a[2]))]:[N(a[0]),N(a[1]),c.v?N(a[1]-a[0]):PF(pc(a[0],a[1]))]}
+function tbl(ti,G,F,c,pre){const nc=c.t=='m'?5:3,R=[];let tot=Array(c.n).fill(0),lf=Array(c.n).fill(0);
+ if(ti)R.push({h:`<td class="ti" colspan="${nc+2}">${ti}</td>`});
+ G.forEach(g=>{if(g.s){R.push({h:`<td class="sc ${g.gy?'gy':''}">${g.s}</td><td colspan="${nc+1}" class="${g.gy?'gy':''}" style="background:${g.gy?'#e7e6e6':'#fff'}"></td>`});return}
+  let gs=Array(c.n).fill(0);
+  g.r.forEach((x,i)=>{const m=/^(\.*)([!#*\/]*)(.*)$/.exec(x),d=m[1].length,f=m[2],t=m[3],T=f.includes('!');let cells;
+   if(f.includes('#'))cells=`<td colspan="${nc}"></td>`;
+   else{let a;if(T){a=gs;tot=tot.map((v,k)=>v+gs[k])}else{a=vals(g.n+t,c);gs=gs.map((v,k)=>v+a[k]);lf=lf.map((v,k)=>v+a[k])}cells=der(a,c).map(v=>`<td class="n">${v}</td>`).join('')}
+   R.push({c:T?'tt':'',h:(i?'':`<td class="gc" rowspan="${g.r.length}">${g.n}</td>`)+`<td class="${f.includes('*')?'bb':''} ${f.includes('/')?'it':''}" style="padding-left:${6+d*14}px">${t}</td>${cells}`})})});
+ F.forEach(([l,k])=>{R.push({c:'ft '+k,h:`<td colspan="2">${l}</td>`+der((tot.some(Boolean)&&!/UNCONTROLLABLE|^TOTAL COST/.test(l)?tot:lf).map(v=>v*(k?.6:1)*(1+rnd(l)*.2)),c).map(v=>`<td class="n">${v}</td>`).join('')})});
+ return `<table class="tb"><tr>${pre?'<th>Region</th><th>MCC</th>':''}<th>Komponen</th><th>Rincian</th>${c.h.map((x,i)=>`<th class="${i<c.n?'b':'y'}">${x}</th>`).join('')}</tr>${R.map((r,i)=>`<tr class="${r.c||''}">${i==0&&pre?pre.replace(/RS/g,R.length):''}${r.h}</tr>`).join('')}</table>`}
+/* ===== komponen UI ===== */
+const dd=(k,o,ph,fn)=>`<div class="dd${S.open==k?' op':''}"><button data-o="${k}"><span>${S[k]||ph||''}</span><i>▾</i></button><ul>${o.map(x=>`<li class="${x==S[k]?'sel':''}" data-s="${k}" data-v="${x}">› ${x}</li>`).join('')}</ul></div>`;
+const inp=(k,ph)=>`<div class="in"><input data-f="${k}" value="${S[k]}" placeholder="${ph||''}" list="dl${k}"><span>⌕</span></div>`;
+function filt(){const cpa=S.pg=='cpa',g=S.by=='Group';
+ return `<div class="card fl"><div class="r"><div><label>Jenis Periode</label>${dd('jp',JP)}</div><div><label>Periode</label>${dd('per',PER)}</div></div>`+
+ (cpa?`<div class="r"><div><label>${g?'Nama Group':'Nama Merchant'}</label>${inp('nm')}</div><div><label>MID</label>${inp('mid')}</div></div><div class="r"><div><label>CIF Merchant</label>${inp('cif')}</div><div><label>TID</label>${inp('tid')}</div></div>${g?'':'<div class="r"><div><label>Kategori</label><div class="in"><b>Fashion</b></div></div><div><label>MCC</label><div class="in"><b>MCC 5944</b></div></div></div>'}`
+ :`<label>Regional Office</label>${dd('ro',RO)}<label>MCC</label>${dd('mcc',MCC)}`)+`<datalist id="dlnm">${(g?['CMK Group','BRI Group','Sinar Group']:MER).map(x=>`<option>${x}`).join('')}</datalist></div>`}
+function side(){const cpa=S.pg=='cpa';
+ return filt()+(cpa?`<div class="card"><h4>Nama merchant</h4><div style="font-size:10px;color:var(--mu)">${MER.length} merchant terdaftar</div><div class="ml">${MER.map((m,i)=>`<div class="${S.by=='Merchant'&&S.nm==m?'sel':''}" data-m="${m}"><b>0${i+1}</b>${m}</div>`).join('')}</div></div>`:'')+
+ `<div class="card"><div class="st"><div><b>2</b>CIF merchant</div><div><b>2.554</b>CIF pegawai</div><div><b>3</b>CIF pengurus</div><div><b>8%</b>Rate pinjaman</div></div></div>
+ <div class="card"><div class="kv">Jumlah merchant (MID)<b>164</b></div><div class="kv">Jumlah EDC (TID)<b>176</b></div><div class="kv"><span>MDR<small>Debit off us, CC on us</small></span><b>1%</b></div><div class="kv"><span>MDR<small>Debit on us</small></span><b>0,15%</b></div><div class="kv">Transaksi Master Card<b>8.138</b></div></div>`}
+const donut=(p,l)=>`<span><svg width="62" height="62" viewBox="0 0 62 62"><circle cx="31" cy="31" r="24" fill="none" stroke="#dce6f5" stroke-width="7"/><circle cx="31" cy="31" r="24" fill="none" stroke="#b8893f" stroke-width="7" stroke-dasharray="${p*1.508} 151" transform="rotate(-90 31 31)" stroke-linecap="round"/><text x="31" y="35" text-anchor="middle" font-size="11" font-weight="700" fill="#111">${String(p).replace('.',',')}%</text></svg></span><span>${l}</span>`;
+/* ===== Layout baru: Profitability Detail (CPA & MPP) ===== */
+const BT=`<button class="bo" data-pg="fb">Feedback</button><button class="bf" data-a="dl">⭳ Download</button>`;
+const PORTG=[{n:'Pinjaman',r:['Pinjaman~18.500|21.300|15,10%;86,17|90,16|99,38|4,60%|10,20%']},
+{n:'Average Daily DPK',r:['Giro~6.200|6.500|4,80%;18,83|19,54|21,67|3,80%|10,90%','Tabungan~2.800|3.000|7,10%;22,05|24,28|23,36|10,10%|-4,60%','Deposito~900|800|-11,10%;28,89|33,46|38,27|15,80%|14,40%','!Total DPK~9.900|10.300|4,00%;69,77|77,28|83,1|10,80%|7,50%']},
+{n:'Sales Volume',r:['EDC On Us~118.000|145.000|22,90%;54,4|63,1|65,87|16,00%|4,40%','EDC Off Us~215.000|258.000|20,00%;66,2|74,76|78,39|12,90%|4,80%','!Total Sales Volume EDC~333.000|403.000|21,00%;120,6|137,86|144,25|14,30%|4,60%','QRIS~11.000|14.000|27,30%;16,34|18,99|22,52|16,20%|18,60%','!Total Sales Volume~344.000|417.000|21,20%;136,94|156,85|166,78|14,50%|6,30%']}];
+const TOPG=[{n:'Pendapatan Bunga',r:['Pinjaman Merchant~1.480|1.705|15,20%;1,5|1,73|1,91|15,50%|10,30%','Pinjaman Owner Perusahaan (inc kartu kredit)~310|355|14,50%;0,49|0,57|0,62|16,70%|8,20%','Kartu Kredit Pegawai~95|110|15,80%;0,16|0,18|0,19|12,10%|8,40%','!Total Pendapatan Bunga~1.885|2.170|15,10%;2,15|2,48|2,72|15,50%|9,70%']},
+{n:'Beban FTP',r:['Pinjaman Merchant~1.020|1.175|15,20%;0,77|0,75|0,83|-2,10%|10,30%','Pinjaman Owner Perusahaan~205|232|13,20%;0,31|0,34|0,36|11,10%|6,20%','Kartu Kredit Pegawai~60|68|13,30%;0,06|0,05|0,05|-5,70%|-8,30%','!Total Beban FTP~1.285|1.475|14,80%;1,13|1,15|1,24|1,30%|8,20%']},
+{s:'Asset Spread',gy:1,d:'Pendapatan Bunga – Beban FTP',v:'600|695|15,80%;600|695|758|15,80%|9,10%'},
+{n:'Pendapatan FTP',r:['DPK Merchant~395|412|4,30%;395|412|430|4,30%|4,40%','DPK Owner Perusahaan~58|62|6,90%;58|62|67|6,90%|8,10%','DPK Payroll~150|165|10,00%;150|165|177|10,00%|7,30%','!Total Pendapatan FTP~603|639|6,00%;603|639|674|6,00%|5,50%']},
+{n:'Beban Bunga',r:['DPK Merchant~165|170|3,00%;165|170|178|3,00%|4,70%','DPK Owner Perusahaan~22|24|9,10%;22|24|26|9,10%|8,30%','DPK Payroll~38|41|7,90%;38|41|44|7,90%|7,30%','!Total Beban Bunga~225|235|4,40%;225|235|248|4,40%|5,50%']},
+{s:'Liabilities Spread',gy:1,d:'Pendapatan FTP – Beban Bunga',v:'378|404|6,90%;378|404|426|6,90%|5,40%'},
+{n:'Pendapatan MDR (Gross)',r:['#*1. EDC','.#*a. On Us','..*i.Kartu Kredit (Master Card, Visa dan JCB)~610|760|24,60%;610|760|825|24,60%|8,60%','..*ii.Kartu Debit~170|215|26,50%;170|215|238|26,50%|10,70%','.#*b. Off Us','..*i.Kartu Kredit (Master Card, Visa dan JCB)~2.150|2.580|20,00%;2.150|2.580|2.830|20,00%|9,70%','..*ii.Kartu Debit~520|807|55,20%;520|807|920|55,20%|14,00%','#*2. QRIS','.*On Us (Dinamis & Statis)~95|125|31,60%;95|125|145|31,60%|16,00%','*3. Brizzi~12|14|16,70%;12|14|16|16,70%|14,30%','!Total Pendapatan MDR Gross~3.557|4.501|26,50%;3.557|4.501|4.974|26,50%|10,50%']},
+{n:'Pendapatan Cross Selling',r:['a.Admin Simpanan~140|155|10,70%;140|155|168|10,70%|8,40%','b.Admin Kartu ATM~75|82|9,30%;75|82|89|9,30%|8,50%','c.Transaksi BRImo~280|320|14,30%;280|320|355|14,30%|10,90%','d.Annual Fee Kartu Kredit~95|110|15,80%;95|110|124|15,80%|12,70%','!Total Pendapatan Cross Selling~590|667|13,10%;590|667|736|13,10%|10,30%']},
+{f:['TOTAL TOPLINE','','5.125|6.267|22,30%;5.125|6.267|6.900|22,30%|10,10%']}];
+const COSTG=[{s:'Controllable Business Cost'},{s:'Fixed Cost',gy:1},{n:'Biaya Sewa EDC',r:['a. FMS~42|46|9,50%;42|46|50|9,50%|8,70%','b. Partnership~18|20|11,10%;18|20|22|11,10%|10,00%','c. Kategori lainnya~9|8|-11,10%;9|8|9|-11,10%|12,50%','!Total Biaya Sewa~69|74|7,20%;69|74|81|7,26%|9,50%']},{s:'Variable Cost',gy:1},
+{n:'Biaya Interchange Fee',r:['#*1. EDC (Off Us) Kartu Kredit','..*a. Master Card~1.300|1.720|32,30%;1.300|1.720|1.890|32,30%|9,90%','..*b. Visa~1.650|2.150|30,30%;1.650|2.150|2.380|30,30%|10,70%','..*c. JCB~240|310|29,20%;240|310|355|29,20%|14,50%','..*d. GPN dan Lainnya~410|520|26,80%;410|520|570|26,80%|9,60%','#*2. QRIS','..*a. Off Us~95|132|38,90%;95|132|148|38,90%|12,10%','!Total Interchange Fee~3.695|4.832|30,80%;3.695|4.832|5.343|30,80%|10,60%']},
+{n:'Biaya MCBS',r:['Biaya mastercard~1|1|20,00%;1|1|1|20,00%|0,00%']},
+{f:['TOTAL CONTROLLABLE BUSINESS COST','','3.765|4.907|30,30%;3.765|4.907|5.424|30,30%|10,50%',1]},{f:['GROSS INCOME AFTER CONTROLLABLE BUSINESS COST','','1.360|1.360|-0,01%;1.360|1.360|1.390|-0,01%|2,20%',0]},
+{s:'Uncontrollable Business Cost'},{s:'Fixed Cost',gy:1},{n:'Beban Tenaga Kerja (BTK)',r:['Bisnis Acquiring sesuai bobot KPI~98|105|7,10%;98|105|113|7,10%|7,60%']},{s:'Variable Cost',gy:1},{n:'Biaya Program / Promosi',r:['Biaya Promo / program~30|33|10,00%;30|33|36|10,00%|9,10%']},
+{f:['TOTAL UNCONTROLLABLE BUSINESS COST','','128|138|7,80%;128|138|149|7,80%|8,00%',1]},{f:['TOTAL COST','','3.893|5.045|29,60%;3.893|5.045|5.524|29,60%|9,50%',1]},{f:['NET INCOME','gr','1.232|1.222|-0,80%;1.232|1.222|1.205|-0,80%|-1,40%',0]}];
+const CIRG=[{f:['CONTROLLABLE COST TO INCOME','','73,50%|78,30%|4,80%;73,50%|78,30%|80,20%|4,80%|1,90%',1]},{f:['TOTAL COST TO INCOME','','76,00%|80,50%|4,50%;76,00%|80,50%|82,10%|4,50%|1,60%',1]}];
+function tb2(G,c,inv,nh){const m=c.t=='m',nc=m?5:3,R=[];
+ const cell=(d,cv)=>d.split(';')[m?1:0].split('|').map((s,i)=>{if(i<c.n)return `<td class="n">${S.pg=='mpp'?MB(parseFloat(s.replace(/\./g,'').replace(',','.'))):s}</td>`;const v=parseFloat(s.replace(',','.'));return `<td class="n" style="color:${(cv?v>0:v<0)?'#d32f2f':'#2e7d32'}">${s}</td>`}).join('');
+ G.forEach(g=>{
+  if(g.f){R.push({c:'ft '+g.f[1],h:`<td colspan="2">${g.f[0]}</td>${cell(g.f[2],g.f[3])}`});return}
+  if(g.s){R.push({c:g.v?'sp':'',h:`<td class="sc ${g.gy?'gy':''}">${g.s}</td>`+(g.v?`<td class="sc gy" style="font-weight:400">${g.d}</td>${cell(g.v)}`:`<td colspan="${nc+1}" style="background:${g.gy?'#e7e6e6':'#fff'}"></td>`)});return}
+  g.r.forEach((x,i)=>{const [lb,d]=x.split('~'),mm=/^(\.*)([!#*\/]*)(.*)$/.exec(lb),f=mm[2],T=f.includes('!');
+   R.push({c:T?'tt':'',h:(i?'':`<td class="gc" rowspan="${g.r.length}">${g.n}</td>`)+`<td class="${f.includes('*')?'bb':''}" style="padding-left:${6+mm[1].length*14}px">${mm[3]}</td>${d?cell(d,inv):`<td colspan="${nc}"></td>`}`})})});
+ return `<table class="tb">${nh?'':`<tr><th>Komponen</th><th>Rincian</th>${c.h.map((x,i)=>`<th class="${i<c.n?'b':'y'}">${x}</th>`).join('')}</tr>`}${R.map(r=>`<tr class="${r.c}">${r.h}</tr>`).join('')}</table>`}
+const LST=['Sinar Mart Sudirman','Sinar Mart Gatot Subroto','Sinar Mart Kemang','Sinar Mart Kuningan','Sinar Distribution Center','Sinar Mart Tebet','Sinar Mart Cilandak','Sinar Mart Pondok Indah','Sinar Mart Kelapa Gading','Sinar Mart Bintaro','Sinar Mart Serpong','Sinar Mart Depok'];
+const dn2=p=>`<svg width="64" height="64" viewBox="0 0 50 50"><circle cx="25" cy="25" r="19" fill="none" stroke="#e3eaf5" stroke-width="6"/><circle cx="25" cy="25" r="19" fill="none" stroke="#1976d2" stroke-width="6" stroke-linecap="round" stroke-dasharray="${p*1.194} 120" transform="rotate(-90 25 25)"/><text x="25" y="28" text-anchor="middle" font-size="9" font-weight="700" fill="currentColor">${String(p).replace('.',',')}%</text></svg>`;
+
+/* ===== helper bersama (revisi) ===== */
+const MNF=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+function barLabels(){const m=S.jp=='Marginal',[mn,yr]=S.per.split(' '),i=MNF.indexOf(mn),y=+yr;
+ if(!m)return [mn+' '+(y-1),mn+' '+y];
+ return [2,1,0].map(k=>{let j=i-k,yy=y;if(j<0){j+=12;yy--}return MNF[j]+' '+yy})}
+const lstCard=fx=>`<div class="cd2 lcd dots${fx?' fx':''}"><div class="ttl">Daftar Merchant</div><div class="lsub">164 merchant terdaftar</div><div class="lw"><div class="lst2">${LST.map((x,k)=>`<div class="lr" data-m="${x}"><span class="lno">${k+1}</span><span class="lnm">${x}</span></div>`).join('')}</div></div></div>`;
+const catCard=()=>`<div class="cd2 lcd dots"><div class="ttl">Kategori Merchant</div><div class="cat"><div class="cn">Fashion</div><b>MCC 5944</b></div></div>`;
+function topCards(np){const cpa=S.pg=='cpa',g=S.by=='Group';
+ const fl=cpa?`<div><label>Search By</label>${dd('by',['Group','Merchant']).replace(/›/g,'>')}</div><div><label>Jenis Periode</label>${dd('jp',JP)}</div><div><label>Periode</label>${dd('per',PER)}</div><div><label>${g?'Nama Group':'Nama Merchant'}</label>${inp('nm')}</div><div><label>CIF Merchant</label>${inp('cif','CIF123')}</div><div><label>MID</label>${inp('mid')}</div><div><label>TID</label>${inp('tid','TID123')}</div>`
+ :`<div><label>Jenis Periode</label>${dd('jp',JP)}</div><div><label>Periode</label>${dd('per',PER)}</div><div><label>Regional Office</label>${dd('ro',RO)}</div><div><label>MCC</label>${dd('mcc',MCC)}</div>`;
+ const PF=[['8','CIF Merchant'],['2.554','CIF Pegawai'],['3','CIF Pengurus'],['164','Jumlah Merchant (MID)'],['176','Jumlah EDC (TID)'],['8.138','Transaksi Master Card'],['1,00%','Avg %MDR','Debit & CC Off Us, CC On Us'],['0,15%','Avg %MDR','Debit On Us'],['8,00%','Rate Pinjaman']];
+ return `<div class="cd2"><div style="font-size:12px;font-weight:600;margin-bottom:10px">Atur Filter untuk Menampilkan Data</div><div class="flt">${fl}<span class="rb">${BT}</span></div><datalist id="dlnm">${(g?['CMK Group','BRI Group','Sinar Group']:MER).map(x=>`<option>${x}`).join('')}</datalist></div>
+ ${np?'':`<div class="cd2"><div class="ct">Profil</div><div class="pf">${PF.map(x=>`<div><b>${x[0]}</b>${x[1]}${x[2]?`<small>${x[2]}</small>`:''}</div>`).join('')}</div></div>`}`}
+function detail2(){const c=cfg(),m=c.t=='m',cpa=S.pg=='cpa',g=S.by=='Group';
+ const dn3=p=>`<svg class="dnx" viewBox="0 0 50 50" aria-hidden="true"><circle cx="25" cy="25" r="20" fill="none" stroke="var(--trk)" stroke-width="9"/><circle cx="25" cy="25" r="20" fill="none" stroke="var(--arc)" stroke-width="9" stroke-dasharray="${(p*1.2566).toFixed(2)} 200" transform="rotate(-90 25 25)"/><text x="25" y="28.2" text-anchor="middle" font-size="9" font-weight="800" fill="currentColor">${String(p).replace('.',',')}%</text></svg>`;
+ const dcard=(t,a,b)=>`<div class="cd2 rc dots"><div class="ttl">${t}</div><div class="dr2">${[a,b].map(x=>`<div class="dc2">${dn3(x[0])}<span>${x[1]}</span></div>`).join('')}</div></div>`;
+ const stk=`<div class="stk">${dcard('Rasio Efisiensi',[78.3,'Total Controllable<br>Cost to Income'],[80.5,'Total Cost to<br>Income'])}${dcard('Komposisi SV EDC',[36,'Sales Volume<br>On Us'],[64,'Sales Volume<br>Off Us'])}</div>`;
+ const sv=b=>`<svg viewBox="0 0 24 24" fill="none" stroke="#2f7fd6" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${b}</svg>`,dol=(x,y,f)=>`<text x="${x}" y="${y}" text-anchor="middle" font-size="${f}" font-weight="700" fill="#2f7fd6" stroke="none">$</text>`;
+ const KI=[sv('<path d="M9 3.5h6l-1.4 3h-3.2z"/><path d="M8.6 6.5C5.6 9 4 11.6 4 14.6A5.2 5.2 0 0 0 9.2 20h5.6a5.2 5.2 0 0 0 5.2-5.4c0-3-1.6-5.6-4.6-8.1"/>'+dol(12,16.6,8.5)),
+  sv('<circle cx="12" cy="12" r="9"/>'+dol(12,16,11)),
+  sv('<circle cx="12" cy="7" r="4.2"/>'+dol(12,9.4,6.2)+'<path d="M2.5 15.5h3.4l3 1.4h4.3a1.4 1.4 0 0 1 0 2.8H9.6"/><path d="M13.3 19.7l5.2-2.6a1.5 1.5 0 0 1 1.5 2.6l-6 3H8.2L5.6 21.4"/>'),
+  sv('<circle cx="9.5" cy="8" r="5"/>'+dol(9.5,10.4,7)+'<path d="M13.5 21v-6.2a1.6 1.6 0 0 1 3.2 0V17l3 .6c.9.2 1.4.9 1.3 1.8l-.4 1.6z"/>')];
+ const kpi=(ic,l,v,g)=>`<div class="cd2 kp2${g?' g':''}"><div class="kh"><span class="ki">${KI[ic]}</span><span class="kl">${l}</span></div><b class="kv2">Rp ${S.pg=='mpp'?MB(+v.replace(/\./g,'')):v}</b></div>`;
+ const kc=[kpi(0,'Total Topline Income','46.820'),kpi(1,'Controllable Cost','72.940'),kpi(2,'Total Cost','156.825'),kpi(3,'Net Income','189.640',1)].join('');
+ const L=barLabels(),Kc=m?['#0b5ed7','#3b91e6','#58b9ea']:['#2554bd','#6bb4e0'];
+ const bc=(t,v,rp)=>{const mx=Math.max(...v);return `<div class="cd2 chc"><div class="ttl">${t}</div><div class="br${m?' b3':''}">${v.map((x,i)=>`<div><small class="bv">${rp&&mp?MB(x):N(x)}</small><i style="height:${x/mx*60}px;background:${Kc[i]}"></i><small>${L[i]}</small></div>`).join('')}</div></div>`};
+ const B=m?[[1900,2000,2600],[290000,334000,417000],[9000,9900,10300]]:[[2000,2600],[334000,417000],[9900,10300]];
+ const mp=S.pg=='mpp',cp=`<span class="cp">Angka dalam Rp ${mp?'Miliar':'Juta'}</span>`;
+ return `${topCards()}
+ <div class="dg"><div><div class="cd2"><div class="ct">Portofolio${cp}</div><div class="rg">${tb2(PORTG,c,0)}</div></div><div class="cd2"><div class="ct">Topline${cp}</div><div class="rg">${tb2(TOPG,c,0)}</div></div></div>
+ <div>${cpa?`<div class="rtop">${stk}${g?lstCard():catCard()}</div><div class="four">${kc}</div>`:`<div class="rtop">${stk}<div class="kg">${kc}</div></div>`}
+ <div class="three">${bc('Jumlah Transaksi',B[0])}${bc('Jumlah Sales Volume',B[1],1)}${bc('Average DPK',B[2],1)}</div>
+ <div class="cd2"><div class="ct">Cost${cp}</div><div class="rg">${tb2(COSTG,c,1)}</div><div style="height:12px"></div><div class="rg">${tb2(CIRG,c,0,1)}</div></div></div></div>`}
+
+/* ===== Account Planning ===== */
+const A={tab:'3000000000',giro:'6500000000',dep:'800000000',sv:'417000000000',on:'40',off:'60',promo:'',mon:'',moff:'',d1:'',d2:''};
+const fmt=v=>v?Number(v).toLocaleString('id-ID'):'';
+const PK=['on','off','mon','moff'];
+const fmtP=v=>{if(v===''||v==null)return '';const n=parseFloat(String(v).replace(',','.'));return isNaN(n)?'':n.toFixed(2).replace('.',',')+'%'};
+const ri=(k,ph)=>PK.includes(k)?`<input data-a2="${k}" data-pct="1" inputmode="decimal" autocomplete="off" value="${fmtP(A[k])}" placeholder="${ph||'0,00%'}">`:`<input data-a2="${k}" inputmode="numeric" value="${fmt(A[k])}" placeholder="${ph||''}">`;
+function rw(l,k,w,s,ph){return `<div class="rw${s?' s':''}"><div>${s?'• ':''}${l}${w?'<span class="wj">*Wajib Diisi*</span>':''}</div><div>${ri(k,ph)}</div></div>`}
+function plan(){const mp=S.pg=='mpp',cpa=!mp,g=S.by=='Group';
+ const fm=(t,body)=>`<div class="cd2 cf"><div class="ct">${t}</div>${body}</div>`;
+ const hd=t=>`<div class="rw h"><div>${t}</div><div></div></div>`;
+ const left=`${fm('Komitmen',`<div class="rw"><div>Avg Daily DPK</div><div style="text-align:right;font-weight:700" id="tdpk">${fmt(+A.tab+ +A.giro+ +A.dep)}</div></div>${rw('Tabungan','tab',1,1)}${rw('Giro','giro',1,1)}${rw('Deposito','dep',1,1)}${rw('Total SV Akumulasi','sv',1)}${hd('Komposisi Sales Volume')}${rw('SV On Us','on',1,1)}${rw('SV Off Us','off',1,1)}${rw('Biaya Program/Promo','promo')}${hd('Rate MDR')}${rw('MDR On Us','mon',0,1)}${rw('MDR Off Us','moff',0,1)}`)}
+ ${fm('Periode Komitmen',`<div class="rw"><div>Periode awal</div><div><input type="date" data-a2="d1" value="${A.d1}"></div></div><div class="rw"><div>Periode akhir</div><div><input type="date" data-a2="d2" value="${A.d2}"></div></div><div class="rw"><div>Jangka waktu</div><div style="text-align:right;font-weight:700" id="jw">${jw()}</div></div>`)}
+ <button class="btn" data-a="sim">Simulasi</button>`;
+ const right=S.sim?`<div class="cd2 rs">${result(mp)}</div>`:`<div class="cd2 ph">Isi data komitmen lalu klik <b>Simulasi</b> untuk melihat hasil skenario.</div>`;
+ return `${topCards(1)}<div class="hg3"><div>${left}</div><div>${right}</div></div>`}
+const jw=()=>{if(!A.d1||!A.d2)return '-';const a=new Date(A.d1),b=new Date(A.d2),m=(b.getFullYear()-a.getFullYear())*12+b.getMonth()-a.getMonth();return m>0?m+' bulan':'-'};
+function result(mp){const D=[['1','BASELINE',mp?'Baseline : '+S.base:'Komitmen Bisnis RTC atas Merchant','#8a94a6'],['2','PLANNING','Planning : Rekomposisi SV On Us/Off Us','#14224f'],['3','PLANNING','Planning : Reprice MDR','#14224f']];
+ const ch=t=>t?`<br><span class="ch ${t[1]||''}">${t[0]}</span>`:'';
+ const bar=(a,l)=>`<div class="pb">${a.map((x,i)=>`<i style="width:${x}%;background:${['#14224f','#6bb4ea','#9b59b6'][i]}"></i>`).join('')}</div><div class="lg">${l.map((x,i)=>`<b><span style="color:${['#14224f','#6bb4ea','#9b59b6'][i]}">●</span> ${x}</b>`).join('')}</div>`;
+ const row=(l,v,c,b)=>`<div class="sc3"><div class="l">${l}</div>${v.map((x,i)=>`<div><span class="v${b?' big':''}">${x}</span>${ch(c[i])}${(row.x||[])[i]||''}</div>`).join('')}</div>`;
+ const R=(l,v,c,b,x)=>{row.x=x;return row(l,v,c,b)};
+ const g=t=>[t,'g'],r=t=>[t,'r'],n=t=>[t,''];
+ return `<div class="bn"><div><big>97,5%</big>Total Cost to Income</div><div>Rekomposisi SV On Us/Off Us (Skenario 2) menurunkan Total Cost to Income dari <b>110,2%</b> menjadi <b>97,5%</b> — turun 12,7 poin — tanpa mengubah DPK maupun tarif MDR. <em>Opsi paling efisien dari 3 skenario</em></div></div><div class="res" style="border-radius:0 0 12px 12px">
+ <div class="sc3"><div class="l">Indikator</div>${D.map(d=>`<div><span style="background:${d[3]};color:#fff;border-radius:50%;width:18px;height:18px;display:inline-grid;place-items:center;font-size:10px">${d[0]}</span><div style="font-size:8px;color:#8a94a6;font-weight:700;margin-top:4px">${d[1]}</div><div style="font-weight:700;font-size:11px">${d[2]}</div></div>`).join('')}</div>
+ <div class="sec">ASUMSI INPUT</div>
+ ${R('Avg Daily DPK',['10,3 M','10,3 M','8,3 M'],[0,n('= baseline'),r('▼ 0,2 M')],0,[bar([29,64,7],['Tabungan 3,0 M','Giro 6,5 M','Deposito 0,8 M']),bar([29,64,7],['Tabungan 3,0 M','Giro 6,5 M','Deposito 0,8 M']),bar([31,62,7],['Tabungan 2,55 M','Giro 5,53 M','Deposito 0,68 M'])])}
+ ${R('Sales Volume',['417,0 M','417,0 M','417,0 M'],[0,0,0],0,[bar([29,71],['On Us 29%','Off Us 71%'])+'<b class="lg">MDR Off Us 1%</b>',bar([40,60],['On Us 40%','Off Us 60%'])+'<b class="lg">MDR Off Us 1%</b>',bar([40,60],['On Us 40%','Off Us 60%'])+'<b class="lg">MDR Off Us 1,35%</b>'])}
+ ${R('Biaya Program',['1,8 M','1,8 M','1,6 M'],[0,n('= baseline'),g('▼ 0,2 M')])}<div class="sec">FORECAST</div>
+ ${R('Topline Income',['5,4 M','5,3 M','6,1 M'],[n('baseline'),r('▼ 0,1 M'),g('▲ 0,7 M')])}${R('Controllable Cost',['4,1 M','3,3 M','4,9 M'],[n('baseline'),g('▼ 0,8 M'),r('▲ 0,8 M')])}${R('Total Cost',['5,9 M','5,2 M','6,5 M'],[n('baseline'),g('▼ 0,7 M'),r('▲ 0,6 M')])}<div class="sec">RASIO EFISIENSI</div>
+ ${R('Controllable Cost to Income',['75,9%','63,1%','79,9%'],[n('baseline'),g('▼ 12,8 pts'),r('▲ 4,0 pts')],1)}${R('Total Cost to Income',['110,2%','97,5%','106,7%'],[n('baseline'),g('▼ 12,7 pts'),g('▼ 3,5 pts')],1)}</div>
+ <div class="lgd">${[['#14224f','On Us / Tabungan'],['#6bb4ea','Off Us / Giro'],['#9b59b6','Deposito'],['#2e9d6b','Lebih baik dari baseline'],['#d94a3e','Lebih buruk dari baseline'],['#aab','Sama dengan baseline']].map(x=>`<span><span style="color:${x[0]}">●</span> ${x[1]}</span>`).join('')}</div>`}
+/* ===== Merchant Group Highlights & Insight ===== */
+function hl(){const m=S.jp=='Marginal',h=cfg().h,u=m?'MoM':'YoY',sg=m?'Secara marginal':'Secara akumulasi';
+ const A=[['Mondial','1234567','1,227','997','198','230',16.2,81.25],['Frank N Co','2234567','1,131','797','320','334',4.4,70.48],['The Palace','3234567','317','333','9','(16)',-273.4,105.15],['Laku Emas','4234567','488','349','120','139',15.8,71.52],['Hala','5234567','4,247','3,920','312','327',4.8,92.30],['Ily Gold','6234567','314','226','78','88',12.8,71.95],['She Deserve The World','7234567','285','202','76','83',9.2,70.85]];
+ const M=[['Mondial','1234567','49.07','7.97','39.60','46.00',16.2,81.25],['Frank N Co','2234567','45.26','6.38','64.00','66.80',4.4,70.48],['The Palace','3234567','12.66','2.66','1.88','-3.26',-273.4,105.15],['Laku Emas','4234567','19.52','2.79','24.00','27.80',15.8,71.52],['Hala','5234567','169.87','31.36','62.40','65.40',4.8,92.30],['Ily Gold','6234567','12.55','1.81','15.60','17.60',12.8,71.95],['She Deserve The World','7234567','11.39','1.61','15.20','16.60',9.2,70.85]];
+ const T=m?['1,215.08','978.14','223','237']:['6,075.38','4,890.68','1,113','1,185'],L=m?[h[1],h[2]]:[h[0],h[1]];
+ const cir=v=>v>100?'#ff2a1f':v>=90?'#ffff00':'#3fae4a',cl=v=>v<0?'#e0201b':'#3aa655';
+ const rows=(m?M:A).map((r,i)=>`<tr data-hm="${r[0]}" title="Klik untuk melihat Profitability Detail ${r[0]}"><td style="text-align:center">${i+1}</td><td class="t">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td><td style="color:${cl(r[6])}">${r[6]}%</td><td class="c" style="background:${cir(r[7])}">${r[7].toFixed(2)}%</td></tr>`).join('');
+ const bc=(t,a,b,ha,hb)=>`<div class="hc" style="height:175px">${t}<div style="display:flex;justify-content:space-around;align-items:flex-end;height:100px;margin-top:6px">${[[a,ha,'#dbe6f7'],[b,hb,'#3b6db3']].map(x=>`<div style="text-align:center;width:42%"><span style="font-size:9px;font-weight:700;color:#111">${x[0]}</span><i style="display:block;height:${x[1]}px;background:${x[2]};margin-top:3px"></i></div>`).join('')}</div><div style="display:flex;justify-content:space-around;margin-top:5px">${L.map(x=>`<span>${x}</span>`).join('')}</div></div>`;
+ const ins=`<div style="text-align:center;font:italic 800 24px Arial;margin-bottom:2px">💡 Insight</div><b>1. Kinerja Grup</b><br>${sg}, <b>Net Income</b> Citra Mega Kencana Group pada Juli'26 sebesar <b>Rp 1,18 M</b>, tumbuh <b>positif 6,4% ${u}</b> dengan CIR <b>80,50%</b> (optimal), dengan kontributor net income terbesar yaitu pada merchant <b>Frank N Co</b> sebesar <b>Rp 334 Jt</b>, tumbuh <b>positif 4,4% ${u}</b>.<br><b>2. Merchant Profit (CIR &lt;100%)</b><br>Terdapat <b>6 merchant</b> yang berhasil menghasilkan net income dengan total <b>Rp 1,20 M</b>, tumbuh <b>positif 8,8% ${u}</b> secara weighted average.<br><b>3. Merchant Rugi (CIR &gt;100%)</b><br>Terdapat <b>1 merchant</b> mengalami kerugian dengan total kerugian <b>Rp 16 Jt</b> dengan weighted average CIR <b>105,15%</b>. Unit Kerja Anda perlu melakukan evaluasi performa komponen portofolio, topline income, dan cost.<br><b>4. Early Warning (CIR 90-100%)</b><br>Terdapat <b>1 merchant</b> dengan profitabilitas belum optimal dengan weighted average CIR <b>92,30%</b>. Unit Kerja Anda perlu menetapkan strategi peningkatan margin dengan melakukan rekomposisi SV On Us/Off Us atau reprice up MDR dengan menggunakan simulasi Acc Planning.`;
+ const PFD=[['8','CIF Merchant'],['2.554','CIF Pegawai'],['3','CIF Pengurus'],['164','Jumlah Merchant (MID)'],['176','Jumlah EDC (TID)'],['8.138','Transaksi Master Card'],['1,00%','Avg %MDR','Debit & CC Off Us, CC On Us'],['0,15%','Avg %MDR','Debit On Us'],['8,00%','Rate Pinjaman']];
+ const g=S.by=='Group',BL=barLabels(),Kb=m?['#0b5ed7','#3b91e6','#58b9ea']:['#0b5ed7','#4db3e6'];
+ const fl=`<div><label>Search By</label>${dd('by',['Group','Merchant']).replace(/›/g,'>')}</div><div><label>Jenis Periode</label>${dd('jp',JP)}</div><div><label>Periode</label>${dd('per',PER)}</div><div><label>${g?'Nama Group':'Nama Merchant'}</label>${inp('nm')}</div><div><label>CIF Merchant</label>${inp('cif','CIF123')}</div><div><label>MID</label>${inp('mid')}</div><div><label>TID</label>${inp('tid','TID123')}</div>`;
+ const bc2=(t,v)=>{const mx=Math.max(...v);return `<div class="cd2"><div class="ct">${t}</div><div class="br${v.length>2?' b3':''}">${v.map((x,i)=>`<div><small>${N(x)}</small><i style="height:${x/mx*60}px;background:${Kb[i]}"></i><small>${BL[i]}</small></div>`).join('')}</div></div>`};
+ const body=`<div class="cd2"><div style="font-size:12px;font-weight:600;margin-bottom:10px">Atur Filter untuk Menampilkan Data</div><div class="flt">${fl}<span class="rb">${BT}</span></div><datalist id="dlnm">${(g?['CMK Group','BRI Group','Sinar Group']:MER).map(x=>`<option>${x}`).join('')}</datalist></div>
+ <div class="cd2"><div class="ct">Profil</div><div class="pf">${PFD.map(x=>`<div><b>${x[0]}</b>${x[1]}${x[2]?`<small>${x[2]}</small>`:''}</div>`).join('')}</div></div>
+ <div class="hg3"><div><div class="cd2"><div class="ct" style="font-size:16px">Citra Mega Kencana Group</div><span class="anc">Merchant Anchor</span><div class="ni"><div><small>Net Income</small><b>Rp 1.184.626.679</b></div>${dn2(80.5)}</div></div>
+ <div class="kg"><div class="cd2 kc"><span><u>▤</u>Total Topline Income</span><b>Rp 6,27 M</b></div><div class="cd2 kc"><span><u>$</u>Total Cost</span><b>Rp 5,08 M</b></div></div>
+ <div class="kg">${bc2('Jumlah SV',m?[175000000,200000000,240000000]:[200000000,240000000])}${bc2('Average DPK',m?[470000000,500000000,550000000]:[500000000,550000000])}</div>
+ <div class="cd2"><div class="ct">Komposisi Sales Volume</div><div class="sv"><i style="width:36%"></i></div><div class="svl"><span><b>36%</b>On Us</span><span style="text-align:right"><b style="color:#1470d6">64%</b>Off Us</span></div></div></div>
+ <div><div class="cd2"><div class="ct">Merchant Performance<span class="cp">Angka dalam Rp Juta</span></div><div class="lgh"><span><i style="background:#3fae4a"></i>CIR &lt; 90% = Laba sudah optimal</span><span><i style="background:#ffff3c"></i>CIR 90% - 100% = (EWS) Laba kurang optimal</span><span><i style="background:#ff2a1f"></i>CIR &gt;100% = Rugi</span></div>
+ <div class="rg hsc"><table class="ht"><thead><tr><th rowspan="2">No</th><th rowspan="2">Nama Merchant</th><th rowspan="2">MID</th><th rowspan="2">Total Topline<br>Income</th><th rowspan="2">Total Cost</th><th class="b" colspan="2">Net Income</th><th class="b" rowspan="2">${m?'%MoM':'%YoY'}</th><th class="c" rowspan="2">CIR</th></tr><tr><th class="b">${L[0]}</th><th class="b">${L[1]}</th></tr></thead><tbody>${rows}<tr class="tot"><td colspan="3" class="t">Total</td><td>${T[0]}</td><td>${T[1]}</td><td>${T[2]}</td><td>${T[3]}</td><td style="color:#2e7d32">6.4%</td><td class="c" style="background:#3fae4a">80.50%</td></tr></tbody></table></div></div>
+ <div class="cd2"><div class="ct">💡 Insight</div><div class="in2b">${ins.replace(/^<div[^>]*>.*?<\/div>/,'')}</div></div></div></div>`;
+ return body}
+
+/* ===== SSA ===== */
+const KOM={'Asset Spread':['Pendapatan Bunga','Pendapatan FTP'],'Beban Bunga':['Beban Bunga'],'Beban FTP':['Beban FTP'],'Biaya Acquiring':['Biaya Acquiring'],'Biaya Interchange Fee':['Biaya Interchange Fee'],'Biaya MCBS':['Biaya MCBS'],'Biaya sewa EDC':['Biaya Sewa EDC'],'Biaya Tenaga Kerja':['Beban Tenaga Kerja (BTK)']};
+const SG=[{n:'Pendapatan Bunga',r:TOP[0].r},{n:'Beban FTP',r:TOP[1].r},{s:'Asset Spread',gy:1},{n:'Pendapatan FTP',r:TOP[3].r},{n:'Beban Bunga',r:TOP[4].r},{s:'Liabilities Spread',gy:1},{n:'Biaya Sewa EDC',r:COST[2].r},{n:'Biaya Interchange Fee',r:COST[4].r},{n:'Biaya MCBS',r:COST[5].r},{n:'Beban Tenaga Kerja (BTK)',r:UNC[2].r},{n:'Biaya Acquiring',r:['Biaya Acquiring KPI','!Total Biaya Acquiring']}];
+function ssa(){const s=S.ssa,P=s.p.split(' ')[0],v=s.p.includes('Value'),on=new Set(s.k.flatMap(k=>KOM[k]));
+ const G=SG.filter(g=>g.s?true:on.has(g.n)).filter(g=>!g.s||on.has(g.s=='Asset Spread'?'Pendapatan FTP':'Beban Bunga')||on.has('Pendapatan Bunga'));
+ const h={MoM:["Jun'26","Jul'26"],YtD:["Des'25","Jul'26"],YoY:["Jul'25","Jul'26"]}[P];
+ const c={t:'a',n:2,v,h:[...h,P+(v?' (Value)':' %')]};
+ const fo=(t,items,sel)=>`<div class="fo" data-fo="${t}">${s.fo[t]===0?'>':'∨'} ▭ ${t}</div>${s.fo[t]===0?'':`<div>${items.map(x=>sel(x)).join('')}</div>`}`;
+ const pre=`<td class="gc" rowspan="RS" style="background:#8db4f8;width:80px">${s.ro}</td><td class="gc" rowspan="RS" style="width:60px">${s.mcc}</td>`;
+ return `<div class="g nl" style="grid-template-columns:1fr"><div class="tab"><div class="tool"><span>←</span><span>→</span><span>⟲</span><span>⊞</span><span>▥</span><span>⇅</span><span>Σ</span><span style="background:#e5e5e5;padding:0 6px">✎</span><span>▭</span><span style="margin-left:auto">Show Me</span></div>
+ <div class="lf"><div style="margin:4px 0 8px"><b>Data</b> &nbsp;&nbsp;&nbsp; Analytics</div><div style="font-weight:700;margin:10px 0">◉ SSA Merchant Profitability</div><div class="sh">⌕ Search</div><b>Folders</b>
+ ${fo('Analisis Periode',['MoM %','MoM (Value)','YtD %','YtD (Value)','YoY %','YoY (Value)'],x=>`<label><input type="radio" name="ap" data-sp="${x}" ${x==s.p?'checked':''}> ${x}</label>`)}
+ ${fo('Regional Office',RO.slice(1).concat(['Region 5 B.Lampung']),x=>`<label><input type="radio" name="ro" data-sro="${x}" ${x==s.ro?'checked':''}> ${x}</label>`)}
+ ${fo('MCC',['Hotel','Fashion','Elektronik','Groceries','Tour Travel'],x=>`<label><input type="radio" name="mc" data-smc="${x}" ${x==s.mcc?'checked':''}> ${x}</label>`)}
+ ${fo('Komponen',Object.keys(KOM),x=>`<label><input type="checkbox" data-sk="${x}" ${s.k.includes(x)?'checked':''}> ${x}</label>`)}</div>
+ <div><div style="display:grid;grid-template-columns:150px 1fr;gap:8px;padding:8px"><div><div class="sh">⌃ Pages</div><div class="sh" style="min-height:104px">⌃ Filters<br><span class="pill" style="padding:5px 12px;margin-top:6px;display:inline-block">Regional Office</span><br><span class="pill" style="padding:5px 20px;margin-top:6px;display:inline-block">MCC</span></div><div class="sh">⌃ Marks<br>Automatic</div></div>
+ <div><div class="shl">⫼ Columns &nbsp; <span class="pill">${P} (Periode)</span><span class="pill">Komponen</span></div><div class="shl">☰ Rows &nbsp;&nbsp;&nbsp;&nbsp; <span class="pill">Asset Spread</span><span class="pill">Liabilities Spread</span></div></div></div>
+ <div style="padding:10px 70px"><h2 style="text-align:center;margin:8px 0 22px;font-size:20px">SSA Merchant<br>Profitability</h2><div class="rg">${tbl('',G,[],c,pre)}</div></div></div></div></div>`}
+/* ===== Feedback ===== */
+function fb(){const f=S.fb,e=k=>f.err&&!FV[k]?' e':'';
+ return `<div class="fm"><div class="fc"><h3><i>1</i>Identitas Pengisi</h3><label>Nama Lengkap <s>*</s></label><input id="fnm" placeholder="Nama sesuai data kepegawaian"><div class="c2"><div><label>PN <s>*</s></label><input id="fpn" placeholder="00000000" inputmode="numeric"></div><div><label>Jabatan <s>*</s></label><select id="fjb"><option>Relationship Manager<option>Branch Manager<option>Analis<option>Lainnya</select></div></div><label>Regional Office <s>*</s></label><select id="fro"><option value="">Pilih Regional Office</option>${RO.slice(1).map(x=>`<option>${x}`).join('')}</select><label>Unit Kerja / Cabang <s>*</s></label><input id="fun" placeholder="Nama cabang / unit kerja"><div class="c2"><div><label>Tanggal</label><input type="date" id="ftg" value="2026-08-11"></div><div><label>Email / No. HP <small style="font-weight:400">opsional</small></label><input id="fem" placeholder="Untuk tindak lanjut"></div></div></div>
+ <div class="fc"><h3><i>2</i>Detail Feedback</h3><div style="display:grid;grid-template-columns:1fr 250px;gap:20px"><div><label>Kategori Feedback</label>${['Bug / Error','Usulan Fitur','Data Tidak Akurat','Tampilan / UX','Lainnya'].map(x=>`<span class="chp${f.cat==x?' on':''}" data-cat="${x}">${x}</span>`).join('')}</div><div><label>Modul Terkait <s>*</s></label>${dd2()}<label style="margin-top:20px">Rating Kepuasan Dashboard</label>${[1,2,3,4,5].map(i=>`<span class="star${i<=f.star?' on':''}" data-st="${i}">★</span>`).join('')} <small style="color:#889">${f.star} / 5</small></div></div>
+ <label style="margin-top:20px">Deskripsi Feedback <s>*</s></label><textarea id="fds" rows="16" placeholder="Jelaskan kendala, usulan, atau catatan Anda selengkap mungkin — sertakan halaman/menu terkait, langkah yang dilakukan, dan hasil yang diharapkan..."></textarea><div style="text-align:right;margin-top:14px"><button class="btn" data-a="kirim" style="padding:13px 36px">Kirim Feedback →</button></div></div></div>`}
+let FV={};
+const dd2=()=>`<div class="dd${S.open=='mod'?' op':''}"><button data-o="mod" style="background:#f9fafc;border-color:#e1e6ee;height:34px"><span>${S.fb.mod||'Pilih modul'}</span><i>▾</i></button><ul>${MOD.map(x=>`<li class="${x==S.fb.mod?'sel':''}" data-mod="${x}">• ${x}</li>`).join('')}</ul></div>`;
+/* ===== logo header (BRI: Nusantara Blue 2025) ===== */
+const LOGO={bri:'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA4MCA0MSI+PGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzM4MDJfODIxMykiPjxwYXRoIGZpbGw9IiMwODU3QzMiIGQ9Ik03NC45NTQgMzQuOTg0djQuMTNoLjY2NnYtNC4xM3ptLTQyLjAxNSAwIDEuNTggNC4xNTMtLjEyLjM0M2ExLjIgMS4yIDAgMCAxLS4yMy40MzcuNS41IDAgMCAxLS4zMDEuMTY1LjkuOSAwIDAgMS0uMzcyLS4wMjlsLS4wNjgtLjAxOC0uMTcxLjU3N2EuOC44IDAgMCAwIC4xODEuMDUycS4xMy4wMjYuMzA4LjAyNi4yOTEgMCAuNTI0LS4xYTEuMSAxLjEgMCAwIDAgLjQwOC0uMzE0cS4xNzgtLjIxNC4zLS41NDNsMS44MTctNC43NWgtLjcyNGwtLjg5IDIuNDVxLS4xMy4zNzYtLjIzMy43NjFsLS4wODIuMzA3LS4wOC0uMzA3YTkgOSAwIDAgMC0uMjM4LS43NjFsLS44NzktMi40NXptMzkuNDktLjA1MXEtLjQzOCAwLS43ODYuMTUyLS4zNDYuMTUyLS41NDUuNDI3LS4yLjI3LS4yLjYyNS4wMDEuNDM2LjI3NC43MTYuMjcyLjI3Ny44MzYuNDFsLjY4NS4xNjRxLjMwNy4wNy40NTcuMjEyLjE1MS4xNDMuMTUxLjM1Ny4wMDIuMjU3LS4yNi40MzgtLjI1NC4xODYtLjY4NS4xODVjLS4yNDUgMC0uNDU2LS4wNTMtLjYxNy0uMTU5YS44LjggMCAwIDEtLjMzNC0uNDk5bC0uNjMuMTU1cS4wNzEuMzU0LjI4Ni41OTYuMjE2LjI0My41NDQuMzcuMzMzLjEyMi43NTUuMTIxLjQ4OCAwIC44NTQtLjE2MS4zNjgtLjE2My41NzItLjQ0Ni4yMDYtLjI4LjIwNC0uNjQ1YTEgMSAwIDAgMC0uMjY2LS43MDZxLS4yNzQtLjI3Ny0uODMzLS40MDlsLS42MjUtLjE0OHEtLjM2LS4wODctLjUyOC0uMjIzYS40Ni40NiAwIDAgMS0uMTY4LS4zN3EwLS4yNTguMjQ2LS40MjguMjQ4LS4xNy42MTctLjE3LjM5OC4wMDIuNTk2LjE4Mi4xOTkuMTguMjgzLjQwM2wuNjAyLS4xNTdhMS41IDEuNSAwIDAgMC0uMjc5LS41MTQgMS4yNiAxLjI2IDAgMCAwLS40ODQtLjM1IDEuOCAxLjggMCAwIDAtLjcyMi0uMTI4bS00LjIyNSAwcS0uNTYyIDAtLjk3OS4yNzItLjQyLjI3My0uNjUuNzU3YTIuNiAyLjYgMCAwIDAtLjIzIDEuMTJxLjAwMS42MzcuMjM1IDEuMTEyYy4xNTcuMzIuMzgxLjU2NS42NjguNzQ1cS40MzQuMjY1IDEuMDM0LjI2NC40MjYgMCAuNzYxLS4xMzJjLjIyOS0uMDkuNDE1LS4yMS41Ny0uMzcuMTUtLjE1My4yNi0uMzQuMzIzLS41NDZsLS42NDEtLjE3OHEtLjA4LjIxLS4yMjEuMzU2YTEgMSAwIDAgMS0uMzQ3LjIxIDEuMyAxLjMgMCAwIDEtLjQ0MS4wNzIgMS4zIDEuMyAwIDAgMS0uNjYyLS4xNjdxLS4yODktLjE2NC0uNDQ2LS40ODNhMS43IDEuNyAwIDAgMS0uMTU3LS42ODloMi45ODN2LS4yNzhxMC0uNTc0LS4xNTQtLjk3YTEuNyAxLjcgMCAwIDAtLjQxNy0uNjM1IDEuNiAxLjYgMCAwIDAtLjU4LS4zNTEgMiAyIDAgMCAwLS42NS0uMTFtMCAuNTkycS4zNzMtLjAwMi42MjcuMTc5LjI1LjE3OC4zNzcuNDkzLjA5NC4yMzQuMTE3LjUxNWgtMi4zMDNxLjAxNi0uMjgyLjEzNy0uNTI4YTEuMiAxLjIgMCAwIDEgLjQwNy0uNDc4cS4yNjQtLjE4Mi42MzgtLjE4MW0tNC4yMjYtLjU5MnEtLjQ2NiAwLS44MTcuMjQxLS4yNzIuMTg0LS40NDUuNTczbC0uMDA1LS43NjNoLS42NHY0LjEzMmguNjY3VjM2LjY0YzAtLjIzNy4wNDYtLjQzNS4xMzYtLjYwM2EuOTQuOTQgMCAwIDEgLjM3NC0uMzc1cS4yMzYtLjEzMS41MzItLjEzMi40MzMgMCAuNjgzLjI3Mi4yNDkuMjcxLjI1Ljc0NXYyLjU3aC42NjRWMzYuNDlxLS4wMDEtLjUyMi0uMTc2LS44NjhhMS4yIDEuMiAwIDAgMC0uNDg5LS41MTggMS41IDEuNSAwIDAgMC0uNzM0LS4xNzFtLTQuNzYgMHEtLjU2My0uMDAyLS45ODguMjY1LS40Mi4yNjYtLjY1Ny43NS0uMjM5LjQ4Mi0uMjM4IDEuMTI2IDAgLjYzOC4yMzcgMS4xMTguMjM5LjQ3OC42NTguNzQ3LjQyNS4yNjUuOTg5LjI2NC41NiAwIC45OS0uMjY0LjQyNS0uMjY5LjY2LS43NDcuMjM2LS40OC4yMzctMS4xMTggMC0uNjQ1LS4yMzctMS4xMjZhMS43NyAxLjc3IDAgMCAwLS42Ni0uNzUgMS44MyAxLjgzIDAgMCAwLS45OS0uMjY1bTAgLjU5NHEuNDE2IDAgLjY4Ni4yMTYuMjY4LjIxNC40LjU2OGMuMDg3LjIzOS4xMjguNDkuMTI4Ljc2M3EuMDAxLjQwOC0uMTI4Ljc1NS0uMTMyLjM1Mi0uNC41NjUtLjI3LjIxNS0uNjg1LjIxNS0uNDE3LS4wMDEtLjY4My0uMjE1YTEuMyAxLjMgMCAwIDEtLjM5Ni0uNTY1IDIuMiAyLjIgMCAwIDEtLjEyOC0uNzU1cTAtLjQxMi4xMjgtLjc2M2ExLjMgMS4zIDAgMCAxIC4zOTYtLjU2OHEuMjY2LS4yMTYuNjgzLS4yMTZtLTguODgxLS41OTRxLS40NyAwLS44MjIuMjQxLS4yNy4xODQtLjQ0My41NzJsLS4wMDItLjc2MmgtLjY0MXY0LjEzM2guNjY0di0yLjQ3OHEuMDAxLS4zNTQuMTM3LS42MDNhLjkzLjkzIDAgMCAxIC4zNzItLjM3NXEuMjM4LS4xMzEuNTM0LS4xMzIuNDMgMCAuNjgxLjI3Mi4yNTEuMjcxLjI1Mi43NDV2Mi41N2guNjY0VjM2LjQ5cTAtLjUyMi0uMTc3LS44NjhhMS4xNiAxLjE2IDAgMCAwLS40ODctLjUxOCAxLjUgMS41IDAgMCAwLS43MzItLjE3MW0tMzkuMSAwcS0uNDY3IDAtLjgxOC4yNDEtLjI3MS4xODQtLjQ0NS41NzdsLS4wMDMtLjc2N2gtLjY0djQuMTMyaC42NjdWMzYuNjRjMC0uMjM3LjA0My0uNDM1LjEzNi0uNjAzYS45NC45NCAwIDAgMSAuMzczLS4zNzVxLjIzNy0uMTMxLjUzMi0uMTMyLjQzNCAwIC42ODMuMjcyLjI0OS4yNzEuMjUuNzQ1djIuNTdoLjY2MlYzNi40OXEwLS41MjItLjE3My0uODY4YTEuMTcgMS4xNyAwIDAgMC0uNDktLjUxOCAxLjUgMS41IDAgMCAwLS43MzMtLjE3MW02Ny4wODQtLjAwMmMtLjIxNSAwLS40MjcuMDMtLjY0NC4wODhhMS44IDEuOCAwIDAgMC0uNTk0LjMwMiAxLjQ0IDEuNDQgMCAwIDAtLjQzMS41OTJsLjY0LjIwOHEuMDY3LS4xNDMuMTk4LS4yODNhMSAxIDAgMCAxIC4zNDItLjIyOXEuMjEtLjA5NC41MDctLjA5Mi4yODUtLjAwMS40OC4wOTRhLjY2LjY2IDAgMCAxIC4yOS4yNzkuOS45IDAgMCAxIC4wOTUuNDM1di4wMjNjMCAuMTAxLS4wNDEuMTcxLS4xMTMuMjE1YS45LjkgMCAwIDEtLjM0Ny4wODZsLS42MDMuMDc0Yy0uMTkuMDI3LS4zODQuMDU4LS41Ny4xMDFhMS45IDEuOSAwIDAgMC0uNTIxLjE5Mi45Ni45NiAwIDAgMC0uMzczLjM0OWMtLjA5NS4xNDktLjE0My4zMzgtLjE0My41NzZxLS4wMDEuNDA2LjE5LjY5Yy4xMjQuMTkuMy4zMzkuNTA1LjQzMnEuMzIyLjE0OS43MTQuMTQ4LjM1IDAgLjYtLjEwM2ExLjMgMS4zIDAgMCAwIC40LS4yNTVxLjE1NS0uMTU1LjIyNi0uM2guMDQ1di41NjNoLjY1NHYtMi43MjNxLjAwMi0uNDg1LS4xNi0uNzc2YTEuMTMgMS4xMyAwIDAgMC0uNDA3LS40MzUgMS41IDEuNSAwIDAgMC0uNTEtLjE5OCAyLjUgMi41IDAgMCAwLS40Ny0uMDUzbS44ODMgMi4xMnYuNTc0YS45Ni45NiAwIDAgMS0uMTMyLjQ3OCAxIDEgMCAwIDEtLjM5LjM3NiAxLjIzIDEuMjMgMCAwIDEtLjYyNS4xNDcgMS4yIDEuMiAwIDAgMS0uNDM3LS4wNzUuNy43IDAgMCAxLS4zMDYtLjIxOC42LjYgMCAwIDEtLjExLS4zNjFxLS4wMDEtLjIzMy4xMjYtLjM3NGEuOC44IDAgMCAxIC4zMzMtLjIwOCAyLjMgMi4zIDAgMCAxIC40NS0uMTAzcS4wOTYtLjAxLjI1Ny0uMDMzYTYgNiAwIDAgMCAuMzQzLS4wNSAzIDMgMCAwIDAgLjMxMy0uMDY4cS4xMzUtLjAzOC4xNzgtLjA4NW0tNDAuMTMtMi4xMmMtLjIxMiAwLS40MjQuMDMtLjY0NS4wODhhMS44IDEuOCAwIDAgMC0uNTk0LjMwMnEtLjI3LjIxMi0uNDI3LjU5MmwuNjM5LjIwOGExLjEgMS4xIDAgMCAxIC4xOTgtLjI4M3EuMTMtLjE0LjM0LS4yMjlhMS4yIDEuMiAwIDAgMSAuNTA4LS4wOTJxLjI4Ny0uMDAxLjQ4MS4wOTRhLjY0LjY0IDAgMCAxIC4yODcuMjc5LjkuOSAwIDAgMSAuMDk5LjQzNXYuMDIzcTAgLjE1LS4xMTQuMjE1YTEgMSAwIDAgMS0uMzQ3LjA4NmMtLjE1Mi4wMi0uMzU2LjA0My0uNjAyLjA3NGE3IDcgMCAwIDAtLjU3My4xMDFxLS4yODQuMDYzLS41MTguMTkyYS45Ny45NyAwIDAgMC0uMzczLjM0OSAxLjA1IDEuMDUgMCAwIDAtLjE0NS41NzZxMCAuNDA2LjE5Mi42OWMuMTI0LjE5LjMuMzQuNTA1LjQzMnEuMzIyLjE0OS43MTIuMTQ4LjM1MyAwIC41OTgtLjEwM2MuMTY3LS4wNjguMy0uMTU2LjQwNS0uMjU1cS4xNTQtLjE1NS4yMjUtLjNoLjA0NXYuNTYzaC42NTR2LTIuNzIzcS0uMDAyLS40ODUtLjE2LS43NzZhMS4xMyAxLjEzIDAgMCAwLS40MDctLjQzNSAxLjQgMS40IDAgMCAwLS41MS0uMTk4IDIuNSAyLjUgMCAwIDAtLjQ3Mi0uMDUzbS44ODYgMi4xMnYuNTc0YS45Ni45NiAwIDAgMS0uMTMzLjQ3OHEtLjEzNS4yMzItLjM5MS4zNzYtLjI1NS4xNDgtLjYyMy4xNDctLjI1IDAtLjQzOC0uMDc1YS43LjcgMCAwIDEtLjMwNS0uMjE4LjYuNiAwIDAgMS0uMTEtLjM2MXEwLS4yMzMuMTI0LS4zNzRhLjguOCAwIDAgMSAuMzM1LS4yMDhxLjIwOC0uMDczLjQ1LS4xMDNsLjI2Mi0uMDMzcS4xNjEtLjAxOS4zMzYtLjA1LjE1OC0uMDIzLjMxMy0uMDY4YS40LjQgMCAwIDAgLjE4LS4wODVtLTEzLjUwNS0yLjEycS0uMzE4IDAtLjY0Mi4wODhjLS4yMTYuMDYzLS40Mi4xNjUtLjU5OC4zMDJxLS4yNy4yMTItLjQyNy41OTJsLjY0LjIwOGExLjA0IDEuMDQgMCAwIDEgLjUzOC0uNTEycS4yMS0uMDk0LjUwNy0uMDkyLjI4OC0uMDAxLjQ4MS4wOTRhLjY1LjY1IDAgMCAxIC4yODcuMjc5LjkuOSAwIDAgMSAuMDk1LjQzNXYuMDIzcTAgLjE1LS4xMTIuMjE1YS45LjkgMCAwIDEtLjM0NC4wODZsLS42MDIuMDc0YTcgNyAwIDAgMC0uNTc0LjEwMXEtLjI4Ni4wNjMtLjUyLjE5MmExIDEgMCAwIDAtLjM3Ni4zNDljLS4wOTMuMTQ5LS4xNC4zMzgtLjE0LjU3NnEuMDAxLjQwNi4xODguNjljLjEyNi4xOS4zMDMuMzM4LjUxLjQzMnEuMzIuMTQ5LjcxMS4xNDguMzUyIDAgLjU5OS0uMTAzYy4xNjUtLjA2OC4yOTktLjE1Ni40MDQtLjI1NXEuMTU0LS4xNTUuMjI1LS4zaC4wNDV2LjU2M2guNjUydi0yLjcyM3EwLS40ODUtLjE2LS43NzZhMS4xMyAxLjEzIDAgMCAwLS40MDctLjQzNSAxLjUgMS41IDAgMCAwLS41MTItLjE5OCAyLjQgMi40IDAgMCAwLS40NjgtLjA1M20uODggMi4xMnYuNTc0YS45OS45OSAwIDAgMS0uNTIuODU0IDEuMiAxLjIgMCAwIDEtLjYyMi4xNDdxLS4yNDkgMC0uNDQyLS4wNzVhLjcuNyAwIDAgMS0uMzAzLS4yMTguNTcuNTcgMCAwIDEtLjExMi0uMzYxcTAtLjIzMy4xMjktLjM3NGEuOC44IDAgMCAxIC4zMzItLjIwOCAyLjMgMi4zIDAgMCAxIC40NS0uMTAzcS4wOTgtLjAxLjI2LS4wMzMuMTY1LS4wMi4zNC0uMDUuMTU4LS4wMjMuMzExLS4wNjguMTM5LS4wMzguMTc4LS4wODVNNi42MiAzNC45MzFxLS4zMTggMC0uNjQzLjA4OGExLjggMS44IDAgMCAwLS41OTUuMzAycS0uMjcuMjEyLS40MjcuNTkybC42MzguMjA4cS4wNzUtLjE1Ni4xOTYtLjI4My4xMzUtLjEzOC4zNDItLjIyOS4yMTEtLjA5NC41MDYtLjA5Mi4yODgtLjAwMS40OC4wOTRjLjEyNC4wNi4yMjcuMTU3LjI5Mi4yNzlhLjkuOSAwIDAgMSAuMDk0LjQzNXYuMDIzcTAgLjE1LS4xMTEuMjE1YS45LjkgMCAwIDEtLjM0Ny4wODZsLS42MDQuMDc0YTcgNyAwIDAgMC0uNTc0LjEwMWMtLjE4NS4wNDItLjM2LjEwNi0uNTE1LjE5MmExIDEgMCAwIDAtLjM3Ni4zNDljLS4wOTMuMTQ5LS4xNC4zMzgtLjE0LjU3NnEtLjAwMi40MDYuMTg3LjY5Yy4xMjYuMTkuMzAyLjMzOS41MDguNDMycS4zMi4xNDkuNzEyLjE0OC4zNSAwIC42LS4xMDNjLjE2My0uMDY4LjI5Ny0uMTU2LjQtLjI1NXEuMTU5LS4xNTUuMjI3LS4zaC4wNDR2LjU2M2guNjUzdi0yLjcyM3EtLjAwMS0uNDg1LS4xNi0uNzc2YTEuMSAxLjEgMCAwIDAtLjQwNy0uNDM1IDEuNCAxLjQgMCAwIDAtLjUxLS4xOTggMi40IDIuNCAwIDAgMC0uNDctLjA1M20uODgzIDIuMTJ2LjU3NGEuOTYuOTYgMCAwIDEtLjEzMi40NzhxLS4xMzQuMjMyLS4zODcuMzc2YTEuMjMgMS4yMyAwIDAgMS0uNjI4LjE0N3EtLjI0NiAwLS40MzctLjA3NWEuNjcuNjcgMCAwIDEtLjMwMy0uMjE4LjU3LjU3IDAgMCAxLS4xMTItLjM2MXEwLS4yMzMuMTI2LS4zNzRhLjc2Ljc2IDAgMCAxIC4zMzQtLjIwOCAyLjMgMi4zIDAgMCAxIC40NDgtLjEwM3EuMDk1LS4wMS4yNjItLjAzM2E2IDYgMCAwIDAgLjM0LS4wNXEuMTczLS4wMjcuMzEyLS4wNjguMTM2LS4wMzguMTc3LS4wODVNNDEuOTAzIDM0di45ODRoLS42MjF2LjU3aC42MjF2Mi41NHEwIC41MDkuMjk3Ljc5LjMwMy4yODMuODM4LjI4Mi4xMjcgMCAuMjU4LS4wMTguMTItLjAxNC4yMzUtLjA1NGwtLjEzNi0uNTYyLS4xNzcuMDNxLS4wODEuMDE0LS4xNjIuMDE2LS4yNjQgMC0uMzc3LS4xMy0uMTExLS4xMjctLjExMS0uNDA0di0yLjQ5aC44NXYtLjU3aC0uODVWMzR6bTEzLjgtLjM5djIuMDM2aC0uMDUzYTMgMyAwIDAgMC0uMTkyLS4yOCAxLjIgMS4yIDAgMCAwLS4zNjctLjMwMXEtLjIzNi0uMTMxLS42MzgtLjEzMi0uNTE0LS4wMDItLjkxLjI2YTEuNyAxLjcgMCAwIDAtLjYxOS43MzZxLS4yMjQuNDgtLjIyMyAxLjEzMyAwIC42NTQuMjIxIDEuMTM5Yy4xNDkuMzE3LjM1NS41NjcuNjIuNzRhMS42IDEuNiAwIDAgMCAuOTA3LjI2MnEuMzk1LjAwMS42MzMtLjEzNC4yMzktLjEzMy4zNy0uMzA3LjEzMy0uMTcxLjE5OC0uMjg1aC4wNzR2LjY0aC42NDRWMzMuNjF6bS0xLjE1MyAxLjkxN3EuMzc5IDAgLjYzOC4xOTQuMjYuMTkuMzkyLjUzMi4xMjguMzQxLjEyNy44YzAgLjMwOC0uMDQuNTc2LS4xMzIuODExYTEuMiAxLjIgMCAwIDEtLjM5LjU0NyAxLjAyIDEuMDIgMCAwIDEtLjYzNS4xOTggMSAxIDAgMCAxLS42NDgtLjIwOSAxLjI1IDEuMjUgMCAwIDEtLjM5NC0uNTYzIDIuMyAyLjMgMCAwIDEtLjEzMi0uNzg0cS4wMDEtLjQyOC4xMy0uNzczLjEzLS4zNDkuMzktLjU1LjI2Mi0uMjAzLjY1NC0uMjAzbS04LjA3My0xLjkxN3Y1LjUwNmguNzAxVjMzLjYxem0tMTcuMzA1IDB2NS41MDZoLjY2NFYzNy41OWwuNDM1LS40MDggMS41MTMgMS45MzRoLjg1MmwtMS44NTctMi4zNTYgMS43MjctMS43NzZoLS44MjNsLTEuNzY2IDEuODIyaC0uMDhWMzMuNjF6bS05LjAwNSAwdjUuNTA2aC43VjM2Ljk4aDEuMTlxLjA2NCAwIC4xMjctLjAwM2wxLjE0NSAyLjE0aC44MTVsLTEuMjM1LTIuMjYzcS4xMDgtLjAzOC4yMDMtLjA4Ny40MTUtLjIxLjYxOC0uNTkuMi0uMzc1LjItLjg2OCAwLS40OTItLjItLjg3NWExLjQzIDEuNDMgMCAwIDAtLjYyLS42MDRjLS4yNzYtLjE0OS0uNjI3LS4yMTktMS4wNTgtLjIxOXptLjcuNjE1aDEuMTQ4cS40MzkgMCAuNzA4LjEzNGMuMTczLjA5LjMwNS4yMTcuMzg2LjM3OHEuMTIzLjI0My4xMjMuNTcxIDAgLjMyNS0uMTIzLjU1N2EuOC44IDAgMCAxLS4zODYuMzZxLS4yNjIuMTMtLjcuMTMxaC0xLjE1NXptLTcuMDYzLS42MTV2NS41MDZoLjY2NlYzNy41OWwuNDM1LS40MDggMS41MSAxLjkzNGguODU1bC0xLjg1Ny0yLjM1NiAxLjcyNy0xLjc3NmgtLjgyM2wtMS43NjggMS44MjJoLS4wNzlWMzMuNjF6bS0xMy41OTQgMHY1LjUwNmgyLjAxNnEuNjUgMCAxLjA1Ni0uMTk1LjQwNS0uMTkuNTk3LS41MjdjLjEzLS4yMi4xOS0uNDcuMTktLjc0NnEwLS40My0uMTcyLS43MzNhMS4zIDEuMyAwIDAgMC0uNDI3LS40NjIgMS4xIDEuMSAwIDAgMC0uNTE1LS4xNzV2LS4wNTJxLjIzNy0uMDY2LjQ0My0uMjAyLjIwNy0uMTQuMzMtLjM3LjEyNy0uMjMuMTI2LS41ODggMC0uNC0uMTgyLS43M2ExLjMgMS4zIDAgMCAwLS41NTctLjUyOGMtLjI1Mi0uMTMyLS41NjctLjE5OC0uOTUzLS4xOTh6bS43MDIuNjIxSDIuMTVxLjUzMi0uMDAyLjc4NC4yNDhhLjgyLjgyIDAgMCAxIC4yNDcuNjA0cS4wMDEuMjg1LS4xNC41YS45NS45NSAwIDAgMS0uMzguMzI3IDEuMiAxLjIgMCAwIDEtLjUzNi4xMTZILjkxMnptMCAyLjM4N2gxLjMzM3EuMzUyIDAgLjYxMi4xNC4yNTEuMTQzLjM5Ni4zNzJhLjk3Ljk3IDAgMCAxIC4xMzkuNTExLjc5Ljc5IDAgMCAxLS4yNy42MDdjLS4xOC4xNjMtLjQ4OC4yNDctLjkxNS4yNDdILjkxMnptNzQuMzc4LTMuMTlhLjQ2LjQ2IDAgMCAwLS4zMjYuMTI2LjQuNCAwIDAgMC0uMTM2LjMxNHEtLjAwMi4xOC4xMzYuMzEuMTM1LjEzLjMyNi4xM2EuNDUuNDUgMCAwIDAgLjMyNi0uMTMuNC40IDAgMCAwIC4xMzgtLjMxLjQxLjQxIDAgMCAwLS4xMzgtLjMxNC40Ni40NiAwIDAgMC0uMzI2LS4xMjZtLjkzNy0zMC43ODdhLjM3LjM3IDAgMCAwLS4zNzEuMzcydjIzLjgzOGEuMzcuMzcgMCAwIDAgLjM3LjM3NGgzLjQwNWEuMjYuMjYgMCAwIDAgLjEyLS4wMjcuMzYuMzYgMCAwIDAgLjI0OS0uMzQ3VjMuMDEzYS4zNy4zNyAwIDAgMC0uMzctLjM3MnptLTIwLjQxNiAwYS4zNzMuMzczIDAgMCAwLS4zNzIuMzcydjIzLjgzOGMwIC4yMDcuMTY3LjM3NC4zNzIuMzc0aDMuMzA5YS4zNzMuMzczIDAgMCAwIC4zNzMtLjM3NFYxOC4xOWEuMzY3LjM2NyAwIDAgMSAuMzctLjM3aDIuNjc1YS4zNy4zNyAwIDAgMSAuMy4xNTVsNi4zOSA5LjA5MmEuMzguMzggMCAwIDAgLjMwNC4xNTloMy44MDlhLjM3LjM3IDAgMCAwIC4zLS41ODZsLTYuMDE1LTguNTYyYS4zNzMuMzczIDAgMCAxIC4yMTItLjU3M2MuOTY2LS4yNTQgMS44MjItLjYzMiAyLjU0Mi0xLjEyM2E3LjUgNy41IDAgMCAwIDEuODEtMS43MjQgNi44IDYuOCAwIDAgMCAxLjA2NC0yLjE2Yy4yMy0uNzk2LjM0Ny0xLjYyLjM0OC0yLjQ0N2E4LjIgOC4yIDAgMCAwLS41MzYtMi45OTYgNi4yNiA2LjI2IDAgMCAwLTEuNTg2LTIuMzJjLS43MDgtLjY1LTEuNjEtMS4xNjgtMi42NzYtMS41MzYtMS4wODEtLjM2OS0yLjM0OC0uNTU3LTMuNzctLjU1N3ptNC4wNTEgMy42aDUuMjFjLjMwNSAwIC42LjAxOS45MDMuMDU2LjkzNS4xNDMgMS43MDQuNDggMi4yOTIgMS4wMTEuODExLjczMiAxLjIyNCAxLjY0MyAxLjIyNCAyLjcwN2E0LjcgNC43IDAgMCAxLS4yNTYgMS41MjcgMy41NiAzLjU2IDAgMCAxLS44MjEgMS4zNDNjLS4zNzEuMzgzLS44NTIuNjk3LTEuNDI0LjkzMi0uNTcxLjIzNS0xLjI2LjM1NS0yLjA1LjM1NWgtNS4wNzhhLjM3LjM3IDAgMCAxLS4zNjktLjM3NFY2LjYxMWEuMzY3LjM2NyAwIDAgMSAuMzctLjM3bS0yMy4zOTUtMy42YS4zNy4zNyAwIDAgMC0uMzcxLjM3MnYyMy44MzhjMCAuMjA3LjE2Ny4zNzQuMzcuMzc0aDkuMzljMS40MiAwIDIuNjcyLS4xOTYgMy43MjYtLjU3NiAxLjA0Mi0uMzggMS45MTctLjkwNSAyLjU5Ny0xLjU2NGE2LjIgNi4yIDAgMCAwIDEuNTIzLTIuMzA4Yy4zMzItLjg3OS41MDEtMS44NC41MDEtMi44NTEgMC0xLjM1LS4zMTEtMi41NjUtLjkyNi0zLjYxMy0uNjIxLTEuMDU2LTEuMzUtMS44NzktMi4xNzItMi40NWEuMzcyLjM3MiAwIDAgMS0uMDUtLjU2OGMuMTYtLjE2LjM1Ny0uMzczLjU3OC0uNjMxYTUuMiA1LjIgMCAwIDAgLjYxLS44ODMgNiA2IDAgMCAwIC40OTQtMS4xNDEgNC4zIDQuMyAwIDAgMCAuMTk3LTEuMzE0YzAtLjkzNy0uMTYtMS44MjItLjQ3OC0yLjYzM2E1LjYgNS42IDAgMCAwLTEuNDYtMi4xMDRjLS42NjEtLjYwMy0xLjQ5OC0xLjA4My0yLjQ5NS0xLjQyNi0xLjAwNS0uMzQ0LTIuMi0uNTIyLTMuNTUtLjUyMnptMy45NjEgMy42aDQuMzhjLjg1MiAwIDEuNTc4LjEwOCAyLjE2LjMyMmguMDAxYy4zOS4xNS43Mi4zNDkuOTcyLjU5Mi42NS42MjMuOTggMS4zNzkuOTggMi4yNSAwIC43NTMtLjEzNCAxLjM5Mi0uNDAyIDEuOTAxLS4yNTYuNDg3LS41MjIuODY5LS43ODYgMS4xMzVsLS4xMS4xMWgtNy4xOTVhLjM3LjM3IDAgMCAxLS4zNzItLjM3NGwuMDAxLTUuNTY2YS4zNy4zNyAwIDAgMSAuMzcxLS4zN20wIDkuOTQ5aDUuNjc4YzEuMzggMCAyLjQyMi4zNzEgMy4xMDkgMS4xMDhhMy43NCAzLjc0IDAgMCAxIC45NyAyLjU1NGMwIDEuMDEtLjM3NCAxLjg4Ny0xLjEwMiAyLjYwNS0uNzMzLjcxNi0xLjkxNyAxLjA4MS0zLjUyNCAxLjA4MWgtNS4xM2EuMzcuMzcgMCAwIDEtLjM3Mi0uMzcxVjE2LjU2YS4zNy4zNyAwIDAgMSAuMzcxLS4zNzFNNC40MDggMEE0LjQwNyA0LjQwNyAwIDAgMCAwIDQuNDF2MjEuMTVhNC40MSA0LjQxIDAgMCAwIDQuNDA5IDQuNDEyaDIxLjE1YTQuNDEgNC40MSAwIDAgMCA0LjQxMy00LjQxM1Y0LjQxMUE0LjQxIDQuNDEgMCAwIDAgMjUuNTYgMHptMCAzLjQzOGgyLjg2OHYuMDE1YTMuNDggMy40OCAwIDAgMSAyLjQwNi44NjhjLjA1My4wNDguMTA3LjEwMS4xNTcuMTUgMS4zNSAxLjM0OCAxLjMzIDMuMzg0LS4wMzcgNC45NjRsLTQuNTE2IDQuOTYyYS44Ny44NyAwIDAgMCAwIDEuMTcybDQuNDg1IDQuOTI3LjA0My4wNTFjMS4zOCAxLjUwNCAxLjM5MyAzLjU4NC4wMjUgNC45NDdhMy40NSAzLjQ1IDAgMCAxLTIuNTYyIDEuMDIxdi4wMTZINC40MDhhLjk3Ljk3IDAgMCAxLS45NzItLjk3MlY0LjQwOWEuOTcuOTcgMCAwIDEgLjk3Mi0uOTcxbTguOTUgMGgzLjE3di4wMTZhMy41IDMuNSAwIDAgMSAyLjQwNy44NjhjLjA1NC4wNDguMTA3LjEwMS4xNTcuMTUgMS4zNDkgMS4zNDggMS4zMyAzLjM4NC0uMDM3IDQuOTY1bC00LjQ2NSA1LjAxYS44NzYuODc2IDAgMCAwIC4wMTIgMS4xNzdMMjQuODAxIDI2LjUzSDEzLjM1OGMxLjUzNy0yLjU5NyAxLjE5LTUuOTM3LTEuMDQxLTguMzQ1bC0yLjkxNC0zLjIgMi44OC0zLjE3LjA2Mi0uMDYzYzIuMTk3LTIuNDg0IDIuNTMtNS43NTQgMS4wMTMtOC4zMTRtOS4yNTEuMDAxaDIuOTVhLjk3Ljk3IDAgMCAxIC45NzIuOTcydjE4Ljg4MWwtNy44MjUtOC4zNjMgMi44MjgtMy4xMTEuMDYtLjA2NUMyMy43OTEgOS4yNyAyNC4xMjggNiAyMi42MSAzLjQ0Ii8+PC9nPjxkZWZzPjxjbGlwUGF0aCBpZD0iY2xpcDBfMzgwMl84MjEzIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMCAwaDgwdjQwLjY5MUgweiIvPjwvY2xpcFBhdGg+PC9kZWZzPjwvc3ZnPg=='};
+function fitHL(){const w=$('.hsc');if(!w)return;const t=w.querySelector('table'),b=t.tBodies[0],rs=[...b.querySelectorAll('tr[data-hm]')],tot=b.querySelector('tr.tot'),H=e=>e.getBoundingClientRect().height;
+ w.style.setProperty('--h1',H(t.tHead.rows[0])+'px');let h=H(t.tHead)+(tot?H(tot):0);rs.slice(0,7).forEach(r=>h+=H(r));w.style.maxHeight=rs.length>7?Math.ceil(h)+'px':''}
+window.addEventListener('resize',fitHL);
+/* ===== render ===== */
+const NAV=[['cpa','Customer Profitability Analysis (per Group/Merchant)'],['mpp','Merchant Product Profitability (Agregat)'],['ssa','Self Service Analytics (SSA)'],['fb','Feedback']];
+const TTL={cpa:'Customer Profitability Analysis (Per Group/Merchant)',mpp:'Merchant Product Profitability (Agregat)',ssa:'Self Service Analytics (SSA)',fb:'Feedback'};
+function keep(){const f=['fnm','fpn','fjb','fro','fun','ftg','fem','fds'];return f.map(i=>$('#'+i)?.value)}
+function render(){if(S.sub=='h'&&(S.pg!='cpa'||S.by!='Group'))S.sub='d';const p=S.pg,fv=p=='fb'&&$('#fnm')?keep():null;
+ $('#nav').innerHTML=NAV.slice(0,3).map(n=>`<a class="${p==n[0]?'on':''}" data-pg="${n[0]}">${n[1]}</a>`).join('');
+ $('#top').innerHTML=`<div class="hd"><span>Dashboard Merchant Profitability</span><div class="logos"><img alt="BRI - Bank Rakyat Indonesia" src="${LOGO.bri}"></div></div>`;let h='';
+ if(p=='cpa'||p=='mpp'){const dt=S.sub=='d';h+=`<div class="cd2 sub2"><button class="pl${dt?' on':''}" data-sub="d">Profitability Detail</button><button class="pl${S.sub=='a'?' on':''}" data-sub="a">Account Planning</button>${p=='cpa'&&S.by=='Group'?`<button class="pl${S.sub=='h'?' on':''}" data-sub="h">Merchant Group Highlights &amp; Insight</button>`:''}</div>`}
+ h+=p=='ssa'?ssa():p=='fb'?fb():p=='cpa'&&S.sub=='h'?hl():S.sub=='d'?detail2():plan();
+ $('#app').innerHTML=h;fitHL();
+ if(fv)['fnm','fpn','fjb','fro','fun','ftg','fem','fds'].forEach((i,k)=>{if(fv[k]!=null&&$('#'+i))$('#'+i).value=fv[k]});
+}
+function toast(m){const t=$('#tt');t.textContent=m;t.style.display='block';clearTimeout(toast.i);toast.i=setTimeout(()=>t.style.display='none',3200)}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-pg],[data-sub],[data-o],[data-s],[data-m],[data-a],[data-cat],[data-st],[data-mod],[data-fo],[data-sk],[data-sp],[data-sro],[data-smc],[data-hm]'),o=S.open;
+ if(!t){if(o){S.open=null;render()}return}const d=t.dataset;
+ if(d.pg){S.pg=d.pg;S.open=null;S.sim=0;S.sub='d';if(d.pg=='mpp'){S.mcc='All'}}
+ else if(d.sub){S.sub=d.sub;S.sim=0}
+ else if(d.o){S.open=o==d.o?null:d.o}
+ else if(d.s){S[d.s]=d.v;S.open=null;if(d.s=='by'){S.nm=d.v=='Group'?'CMK Group':'Mondial';if(d.v!='Group'&&S.sub=='h')S.sub='d'}}
+ else if(d.m){S.by='Merchant';S.nm=d.m;S.mid=String(10000+hs(d.m)%9000)}
+ else if(d.mod!==undefined){S.fb.mod=d.mod;S.open=null}
+ else if(d.cat){S.fb.cat=d.cat}else if(d.st){S.fb.star=+d.st}
+ else if(d.fo){S.ssa.fo[d.fo]=S.ssa.fo[d.fo]===0?1:0}
+ else if(d.sk){const k=S.ssa.k;k.includes(d.sk)?k.splice(k.indexOf(d.sk),1):k.push(d.sk)}
+ else if(d.sp){S.ssa.p=d.sp}else if(d.sro){S.ssa.ro=d.sro}else if(d.smc){S.ssa.mcc=d.smc}
+ else if(d.hm){S.by='Merchant';S.nm=d.hm;S.mid=String(10000+hs(d.hm)%9000);S.sub='d'}
+ else if(d.a=='hide')S.hide=!S.hide;
+ else if(d.a=='dl'){const csv=[...document.querySelectorAll('.tb tr')].map(r=>[...r.cells].map(c=>'"'+c.innerText.replace(/\n/g,' ')+'"').join(';')).join('\n');(navigator.clipboard?navigator.clipboard.writeText(csv):Promise.reject()).then(()=>toast('Data tabel disalin ke clipboard (format CSV)'),()=>toast('Download tidak tersedia di mode pratinjau ini'));return}
+ else if(d.a=='sim'){const req=['tab','giro','dep','sv','on','off','promo'],bad=req.filter(k=>!A[k]);document.querySelectorAll('[data-a2]').forEach(i=>i.classList.toggle('er',bad.includes(i.dataset.a2)));
+  if(!A.d1||!A.d2||jw()=='-')bad.push('d');if(bad.length){toast('Lengkapi kolom wajib (*Wajib Diisi*) dan Periode komitmen terlebih dulu');return}S.sim=1;toast('Simulasi selesai: 3 skenario berhasil dihitung')}
+ else if(d.a=='kirim'){const v=i=>($('#'+i).value||'').trim(),m={fnm:v('fnm'),fpn:v('fpn'),fro:v('fro'),fun:v('fun'),fds:v('fds')};let bad=0;
+  Object.keys(m).forEach(k=>{const x=!m[k];$('#'+k).classList.toggle('e',x);bad|=x});if(!S.fb.mod)bad=1;
+  if(bad){toast('Lengkapi seluruh kolom bertanda * termasuk Modul Terkait');return}S.fb.mod='';toast('Terima kasih! Feedback Anda berhasil dikirim.');S.pg='fb';$('#app').innerHTML='';S.open=null;render();return}
+ render()});
+document.addEventListener('input',e=>{const t=e.target,f=t.dataset.f,a=t.dataset.a2;if(f)S[f]=t.value;
+ if(a&&t.dataset.pct){let v=t.value.replace(/[^\d.,]/g,'').replace(/\./g,','),i=v.indexOf(',');if(i>=0)v=v.slice(0,i+1)+v.slice(i+1).replace(/,/g,'').slice(0,2);let n=parseFloat(v.replace(',','.'));if(n>100){v='100';n=100}
+  if(t.value!==v)t.value=v;A[a]=isNaN(n)?'':v.replace(',','.');t.classList.remove('er');
+  const o={on:'off',off:'on'}[a];if(o){const x=document.querySelector('[data-a2='+o+']');A[o]=isNaN(n)?'':(100-n).toFixed(2);if(x)x.value=fmtP(A[o])}return}
+ if(a){A[a]=a[0]=='d'&&a.length==2?t.value:t.value.replace(/\D/g,'');if(a[0]!='d'||a.length>2){t.classList.remove('er')}
+  if(['tab','giro','dep'].includes(a))$('#tdpk').textContent=fmt(+A.tab+ +A.giro+ +A.dep);if(a=='on'){A.off=String(Math.max(0,100-A.on));document.querySelector('[data-a2=off]').value=A.off}if(a=='off'){A.on=String(Math.max(0,100-A.off));document.querySelector('[data-a2=on]').value=A.on}if(a[0]=='d')$('#jw').textContent=jw()}});
+document.addEventListener('focusout',e=>{const a=e.target.dataset.a2;if(!a)return;if(PK.includes(a)){e.target.value=fmtP(A[a]);return}if(a.length>2)e.target.value=fmt(A[a])});
+document.addEventListener('focusin',e=>{const t=e.target;if(t.dataset&&t.dataset.pct){t.value=A[t.dataset.a2]===''?'':String(A[t.dataset.a2]).replace('.',',');t.select()}});
+document.addEventListener('change',e=>{if(e.target.dataset.f&&(e.target.dataset.f=='nm')){S.nm=e.target.value;render()}});
+render();
+</script></body></html>
